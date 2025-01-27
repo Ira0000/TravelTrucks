@@ -1,6 +1,18 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { fetchCampers } from "../redux/campers/operations";
+import { selectAllCampers } from "../redux/campers/selectors";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
 
 const HomePage = () => {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchCampers());
+  }, [dispatch]);
+
+  const list = useAppSelector(selectAllCampers);
+  console.log(list);
   return (
     <div
       className="flex flex-col text-[#F7F7F7] pl-16 justify-center bg-[url(/public/hero_1x.avif)] bg-cover bg-center 
