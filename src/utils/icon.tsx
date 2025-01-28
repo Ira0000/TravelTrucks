@@ -1,7 +1,7 @@
 import { SpriteTypes } from "./types";
 
 interface IconProps {
-  id: SpriteTypes;
+  id: SpriteTypes | string;
   w: number;
   h: number;
   className?: string;
