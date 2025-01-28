@@ -8,8 +8,8 @@ const Navigation = () => {
   };
 
   return (
-    <header className="sticky top-0 flex items-center justify-center bg-[#F7F7F7] p-6 border border-[#F2F4F7]">
-      <Link to="/" className="absolute top-7 left-16">
+    <header className="sticky top-0 flex items-center justify-center bg-[#F2F4F7] p-6 border border-[#F2F4F7] z-50 shadow-sm w-full">
+      <Link to="/" className="absolute top-7 left-16 cursor-pointer">
         <Icon id="icon-logo" h={16} w={136} />
       </Link>
       <nav className="flex gap-8">
