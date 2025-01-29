@@ -1,51 +1,21 @@
+import { Link, useLocation } from "react-router-dom";
 import { Campers } from "../../types/CampersTypes";
 import { cn } from "../utils/cn";
 import Icon from "../utils/icon";
+import { countAverage, filterCamperUtilities } from "../utils/counterHelpers";
 
 interface CamperItemProps {
   camperItem: Campers;
 }
 
 export default function CamperItem({ camperItem }: CamperItemProps) {
+  const location = useLocation();
+
   const smallImageLink = camperItem?.gallery?.[0]?.thumb;
-  const reviewsCount = camperItem?.reviews?.length ?? 0;
-  const averageRating =
-    camperItem.reviews?.reduce(
-      (sum, review) => sum + review.reviewer_rating,
-      0
-    ) ?? 0;
-  const roundedRating =
-    averageRating > 0
-      ? Math.round((averageRating / reviewsCount) * 10) / 10
-      : 0;
 
-  const camperItemUtilities = [
-    {
-      name: camperItem.transmission,
-      value: camperItem.transmission,
-      icon: "icon-diagram",
-    },
-    {
-      name: camperItem.engine,
-      value: camperItem.engine,
-      icon: "icon-fuel-pump",
-    },
-    { name: "Kitchen", value: camperItem.kitchen, icon: "icon-cup-hot" },
-    { name: "AC", value: camperItem.AC, icon: "icon-wind" },
-    { name: "Bathroom", value: camperItem.bathroom, icon: "icon-shower" },
-    { name: "TV", value: camperItem.TV, icon: "icon-tv" },
-    { name: "Radio", value: camperItem.radio, icon: "icon-ui-radios" },
-    {
-      name: "Refrigerator",
-      value: camperItem.refrigerator,
-      icon: "icon-fridge",
-    },
-    { name: "Microwave", value: camperItem.microwave, icon: "icon-microwave" },
-    { name: "Gas", value: camperItem.gas, icon: "icon-gas-stove" },
-    { name: "Water", value: camperItem.water, icon: "icon-water" },
-  ].filter((utility) => utility.value);
+  const { reviewsCount, roundedRating } = countAverage(camperItem);
 
-  const handleClick = () => {};
+  const camperItemUtilities = filterCamperUtilities(camperItem);
 
   return (
     <>
@@ -120,13 +90,13 @@ export default function CamperItem({ camperItem }: CamperItemProps) {
             );
           })}
         </ul>
-        <button
-          type="button"
-          onClick={handleClick}
+        <Link
+          to={`/catalog/${camperItem.id.toString()}`}
+          state={location}
           className="cursor-pointer bg-[#E44848] text-[#FFFFFF] hover:bg-[#D84343] rounded-[200px] px-10 py-4"
         >
           Show more
-        </button>
+        </Link>
       </div>
     </>
   );

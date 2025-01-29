@@ -3,8 +3,8 @@ export interface Campers {
   id: string;
   name: string;
   price: number;
-  rating: number;
-  location: string;
+  rating?: number;
+  location?: string;
   AC?: boolean;
   TV?: boolean;
   bathroom?: boolean;
@@ -24,7 +24,7 @@ export interface Campers {
   height?: string;
   tank?: string;
   reviews?: CampersReview[];
-  gallery: CampersGallery[];
+  gallery?: CampersGallery[];
 }
 
 export interface CampersReview {

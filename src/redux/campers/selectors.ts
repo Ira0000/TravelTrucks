@@ -20,32 +20,37 @@ export const selectCampersHasMorePages = (state: RootState) =>
 
 export const selectFilters = (state: RootState) => state.campers.filters;
 
-export const selectFilteredCampers = (state: RootState) => {
-  const campers = state.campers.campers.items;
-  const { location, form, equipment } = state.campers.filters;
+export const selectOneCamper = (state: RootState) => state.campers.camper.item;
 
-  return campers.filter((camper) => {
-    // Location filter
-    if (
-      location &&
-      !camper.location.toLowerCase().includes(location.toLowerCase())
-    ) {
-      return false;
-    }
+export const selectOneCamperError = (state: RootState) =>
+  state.campers.camper.error;
 
-    // Vehicle type filter
-    if (form && camper.form !== form.toLowerCase()) {
-      return false;
-    }
+export const selectOneCamperLoading = (state: RootState) =>
+  state.campers.camper.loading;
+// export const selectFilteredCampers = (state: RootState) => {
+//   const campers = state.campers.campers.items;
+//   const { location, form, equipment } = state.campers.filters;
 
-    // Equipment filter
-    if (equipment.length > 0) {
-      return equipment.every((item) => {
-        const equipmentKey = item.toLowerCase() as keyof typeof camper;
-        return camper[equipmentKey] === true;
-      });
-    }
+//   return campers.filter((camper) => {
 
-    return true;
-  });
-};
+//     if (
+//       location &&
+//       !camper.location.toLowerCase().includes(location.toLowerCase())
+//     ) {
+//       return false;
+//     }
+
+//     if (form && camper.form !== form.toLowerCase()) {
+//       return false;
+//     }
+
+//     if (equipment.length > 0) {
+//       return equipment.every((item) => {
+//         const equipmentKey = item.toLowerCase() as keyof typeof camper;
+//         return camper[equipmentKey] === true;
+//       });
+//     }
+
+//     return true;
+//   });
+// };

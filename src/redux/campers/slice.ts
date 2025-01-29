@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { fetchCampers } from "./operations";
+import { fetchCampers, fetchCampersById } from "./operations";
 import { Campers, FiltersList } from "../../../types/CampersTypes";
 import { ApiResponseCampers } from "../../../types/CampersResponse";
 
@@ -18,6 +18,11 @@ export interface CampersState {
     equipment: string[];
     invalidFilter: boolean;
   };
+  camper: {
+    item: Campers | null;
+    loading: boolean;
+    error: string | null;
+  };
 }
 
 const initialState: CampersState = {
@@ -35,6 +40,11 @@ const initialState: CampersState = {
     equipment: [],
     invalidFilter: false,
   },
+  camper: {
+    item: null,
+    loading: false,
+    error: null,
+  },
 };
 
 const handlePending = (state: CampersState) => {
@@ -48,6 +58,19 @@ const handleRejected = (
   state.campers.loading = false;
   const errorMessage = action.payload ?? null;
   state.campers.error = errorMessage;
+};
+
+const handleCamperPending = (state: CampersState) => {
+  state.camper.loading = true;
+};
+
+const handleCamperRejected = (
+  state: CampersState,
+  action: PayloadAction<string | undefined>
+) => {
+  state.camper.loading = false;
+  const errorMessage = action.payload ?? null;
+  state.camper.error = errorMessage;
 };
 
 const slice = createSlice({
@@ -111,7 +134,17 @@ const slice = createSlice({
             action.payload.items.length >= state.campers.itemsPerPage;
         }
       )
-      .addCase(fetchCampers.rejected, handleRejected);
+      .addCase(fetchCampers.rejected, handleRejected)
+      .addCase(fetchCampersById.pending, handleCamperPending)
+      .addCase(
+        fetchCampersById.fulfilled,
+        (state: CampersState, action: PayloadAction<Campers>) => {
+          state.camper.loading = false;
+          state.camper.error = null;
+          state.camper.item = action.payload;
+        }
+      )
+      .addCase(fetchCampersById.rejected, handleCamperRejected);
   },
 });
 
