@@ -1,11 +1,14 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import Icon from "../utils/icon";
 import { cn } from "../utils/cn";
+import { changeFilter } from "../redux/campers/slice";
+import { useAppDispatch } from "../redux/hooks";
+import { Equipment } from "../../types/CampersTypes";
 
 interface FormValues {
   location: string;
   vehicleType: string;
-  equipment: string[];
+  equipment: Equipment[];
 }
 
 export default function Filters() {
@@ -17,10 +20,12 @@ export default function Filters() {
     },
   });
 
-  const onSubmit: SubmitHandler<FormValues> = (data) => console.log(data);
+  const dispatch = useAppDispatch();
+  const onSubmit: SubmitHandler<FormValues> = (data) =>
+    dispatch(changeFilter(data));
 
   const vehicleTypes = [
-    { name: "Van", icon: "icon-grid-3" },
+    { name: "Panel Truck", icon: "icon-grid-3" },
     { name: "Fully Integrated", icon: "icon-grid-4" },
     { name: "Alcove", icon: "icon-grid-9" },
   ];

@@ -14,12 +14,23 @@ export const fetchCampers = createAsyncThunk<
 >("campers/fetchAll", async (_, { rejectWithValue, getState }) => {
   const state = getState();
   const { page, itemsPerPage } = state.campers.campers;
+  const { location, form, equipment } = state.campers.filters;
   try {
+    const params: Record<string, string | number | boolean> = {
+      page,
+      limit: itemsPerPage,
+    };
+
+    if (location) params.location = location;
+    if (form) params.form = form;
+
+    if (equipment.length > 0) {
+      equipment.forEach((item) => {
+        params[item] = true;
+      });
+    }
     const { data } = await BASE_URL.get<ApiResponseCampers>("/campers", {
-      params: {
-        page,
-        limit: itemsPerPage,
-      },
+      params,
     });
     return data;
   } catch (error) {

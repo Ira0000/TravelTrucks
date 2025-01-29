@@ -1,3 +1,4 @@
+//Type for the items object with data from API
 export interface Campers {
   id: string;
   name: string;
@@ -35,4 +36,20 @@ export interface CampersReview {
 export interface CampersGallery {
   original: string;
   thumb: string;
+}
+export enum Equipment {
+  WATER = "water",
+  GAS = "gas",
+  AC = "AC",
+  BATHROOM = "bathroom",
+  TV = "TV",
+  RADIO = "radio",
+  REFRIGERATOR = "refrigerator",
+  MICROWAVE = "microwave",
+  KITCHEN = "kitchen",
+}
+export interface FiltersList {
+  location: string;
+  vehicleType: string;
+  equipment: Equipment[];
 }
