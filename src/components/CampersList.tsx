@@ -12,7 +12,7 @@ import { fetchCampers } from "../redux/campers/operations";
 import { incrementPage, resetPagination } from "../redux/campers/slice";
 import Loader from "./Loader/Loader";
 
-const CampersList = () => {
+export default function CampersList() {
   const dispatch = useAppDispatch();
 
   const list = useAppSelector(selectAllCampers);
@@ -63,6 +63,4 @@ const CampersList = () => {
       )}
     </div>
   );
-};
-
-export default CampersList;
+}

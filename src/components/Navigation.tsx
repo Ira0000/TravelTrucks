@@ -4,12 +4,12 @@ import { cn } from "../utils/cn";
 import { resetFilters } from "../redux/campers/slice";
 import { useAppDispatch } from "../redux/hooks";
 
-const Navigation = () => {
+export default function Navigation() {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const buildLinkClass = ({ isActive }: { isActive: boolean }): string => {
     return cn("text-s text-[#101828] ", {
-      "text-[#D84343] pointer-events-none cursor-default": isActive,
+      "text-[#D84343] pointer-events-none": isActive,
     });
   };
 
@@ -43,6 +43,4 @@ const Navigation = () => {
       </nav>
     </header>
   );
-};
-
-export default Navigation;
+}

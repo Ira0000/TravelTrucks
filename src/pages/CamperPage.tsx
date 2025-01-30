@@ -13,8 +13,9 @@ import { cn } from "../utils/cn";
 import Loader from "../components/Loader/Loader";
 import CamperReviews from "../components/CamperReviews";
 import CamperFeatures from "../components/CamperFeatures";
+import BookingForm from "../components/forms/BookingForm";
 
-const CamperPage = () => {
+export default function CamperPage() {
   const buildLinkClass = (tab: boolean): string => {
     return cn(
       "text-xl leading-[24px] font-semibold text-[#101828] relative pb-6 cursor-pointer",
@@ -99,31 +100,33 @@ const CamperPage = () => {
       </p>
       <div>
         <div className="relative mb-11">
-          <div className="flex gap-10">
-            <button
-              onClick={() => setActiveTab(false)}
-              className={buildLinkClass(activeTab === false)}
-            >
-              Features
-            </button>
-            <button
-              onClick={() => setActiveTab(true)}
-              className={buildLinkClass(activeTab === true)}
-            >
-              Reviews
-            </button>
+          <div>
+            <div className="flex gap-10">
+              <button
+                onClick={() => setActiveTab(false)}
+                className={buildLinkClass(activeTab === false)}
+              >
+                Features
+              </button>
+              <button
+                onClick={() => setActiveTab(true)}
+                className={buildLinkClass(activeTab === true)}
+              >
+                Reviews
+              </button>
+            </div>
+            <hr className="absolute bottom-0.5 left-0 w-full h-[1px] bg-[#DADDE1] border-0" />
           </div>
-          <hr className="absolute bottom-0.5 left-0 w-full h-[1px] bg-[#DADDE1] border-0" />
         </div>
-
-        {activeTab ? (
-          <CamperReviews camperItem={camperItem} />
-        ) : (
-          <CamperFeatures camperItem={camperItem} />
-        )}
+        <div className="flex gap-10">
+          {activeTab ? (
+            <CamperReviews camperItem={camperItem} />
+          ) : (
+            <CamperFeatures camperItem={camperItem} />
+          )}
+          <BookingForm />
+        </div>
       </div>
     </div>
   );
-};
-
-export default CamperPage;
+}
