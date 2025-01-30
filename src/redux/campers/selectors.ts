@@ -27,30 +27,3 @@ export const selectOneCamperError = (state: RootState) =>
 
 export const selectOneCamperLoading = (state: RootState) =>
   state.campers.camper.loading;
-// export const selectFilteredCampers = (state: RootState) => {
-//   const campers = state.campers.campers.items;
-//   const { location, form, equipment } = state.campers.filters;
-
-//   return campers.filter((camper) => {
-
-//     if (
-//       location &&
-//       !camper.location.toLowerCase().includes(location.toLowerCase())
-//     ) {
-//       return false;
-//     }
-
-//     if (form && camper.form !== form.toLowerCase()) {
-//       return false;
-//     }
-
-//     if (equipment.length > 0) {
-//       return equipment.every((item) => {
-//         const equipmentKey = item.toLowerCase() as keyof typeof camper;
-//         return camper[equipmentKey] === true;
-//       });
-//     }
-
-//     return true;
-//   });
-// };

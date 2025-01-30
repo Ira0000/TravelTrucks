@@ -1,38 +1,40 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { campersSlice } from "./campers/slice";
-// import {
-//   FLUSH,
-//   PAUSE,
-//   PERSIST,
-//   PURGE,
-//   REGISTER,
-//   REHYDRATE,
-//   persistReducer,
-//   persistStore,
-// } from "redux-persist";
-// import storage from "redux-persist/lib/storage";
+import { favouritesSlice, FavouritesState } from "./favourites/slice";
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from "redux-persist";
+import storage from "redux-persist/lib/storage";
 
-// const storePersistConfig = {
-//   key: "auth",
-//   storage,
-// };
+const persistConfig = {
+  key: "favourites",
+  storage,
+};
 
-// const persistedReducer = persistReducer(storePersistConfig, storeReducer);
-
+const persistedFavouritesReducer = persistReducer<FavouritesState>(
+  persistConfig,
+  favouritesSlice
+);
 export const store = configureStore({
   reducer: {
     campers: campersSlice,
-    // filters: filtersSlice,
-    // favourites: favouritesSlice,
+    favourites: persistedFavouritesReducer,
   },
-  //   middleware: (getDefaultMiddleware) =>
-  //     getDefaultMiddleware({
-  //       serializableCheck: {
-  //         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-  //       },
-  //     }),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
-// export const persistor = persistStore(store);
+export const persistor = persistStore(store);

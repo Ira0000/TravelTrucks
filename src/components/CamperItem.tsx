@@ -3,6 +3,12 @@ import { Campers } from "../../types/CampersTypes";
 import { cn } from "../utils/cn";
 import Icon from "../utils/icon";
 import { countAverage, filterCamperUtilities } from "../utils/counterHelpers";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import {
+  addToFavourites,
+  removeFromFavourites,
+} from "../redux/favourites/slice";
+import { selectIfIsFavourite } from "../redux/favourites/selectors";
 
 interface CamperItemProps {
   camperItem: Campers;
@@ -10,12 +16,27 @@ interface CamperItemProps {
 
 export default function CamperItem({ camperItem }: CamperItemProps) {
   const location = useLocation();
-
+  const dispatch = useAppDispatch();
   const smallImageLink = camperItem?.gallery?.[0]?.thumb;
 
   const { reviewsCount, roundedRating } = countAverage(camperItem);
 
   const camperItemUtilities = filterCamperUtilities(camperItem);
+
+  const handleHeartClick = (data: Campers) => {
+    const isFavorite = checkIfFavourite(data);
+    if (isFavorite) {
+      dispatch(removeFromFavourites(data.id));
+    } else {
+      dispatch(addToFavourites(data));
+    }
+  };
+
+  const listFavourites = useAppSelector(selectIfIsFavourite);
+
+  function checkIfFavourite(currentItem: Campers) {
+    return listFavourites.some((item) => item.id === currentItem.id);
+  }
 
   return (
     <>
@@ -35,12 +56,18 @@ export default function CamperItem({ camperItem }: CamperItemProps) {
             <p className="font-semibold text-2xl leading-[32px]">
               €{camperItem.price}.00
             </p>
-            <button className="cursor-pointer justify-center items-center">
+            <button
+              onClick={() => handleHeartClick(camperItem)}
+              className="cursor-pointer justify-center items-center"
+            >
               <Icon
                 id="icon-heart"
                 h={24}
                 w={26}
-                className="hover:fill-[#E44848]"
+                className={cn("hover:fill-[#E44848]", {
+                  "fill-[#E44848]": checkIfFavourite(camperItem),
+                  "fill-[#101828]": !checkIfFavourite(camperItem),
+                })}
               />
             </button>
           </div>
