@@ -77,15 +77,15 @@ const slice = createSlice({
   name: "campers",
   initialState,
   reducers: {
-    incrementPage: (state) => {
+    incrementPage: (state: CampersState) => {
       state.campers.page += 1;
     },
-    resetPagination: (state) => {
+    resetPagination: (state: CampersState) => {
       state.campers.page = 1;
       state.campers.hasMore = true;
       state.campers.items = [];
     },
-    changeFilter(state, action: PayloadAction<FiltersList>) {
+    changeFilter(state: CampersState, action: PayloadAction<FiltersList>) {
       const locationFilter = String(action.payload.location.trim());
       const nameRegex = /^[a-zA-Z]+$/; // Matches only letters
       state.filters.invalidFilter = false;
@@ -113,7 +113,14 @@ const slice = createSlice({
         state.filters.form = vehicleTypeFilter;
       }
     },
+    resetFilters(state: CampersState) {
+      state.filters.location = "";
+      state.filters.form = "";
+      state.filters.equipment = [];
+      state.filters.invalidFilter = false;
+    },
   },
+
   extraReducers: (builder) => {
     builder
       .addCase(fetchCampers.pending, handlePending)
@@ -148,5 +155,6 @@ const slice = createSlice({
   },
 });
 
-export const { incrementPage, resetPagination, changeFilter } = slice.actions;
+export const { incrementPage, resetPagination, changeFilter, resetFilters } =
+  slice.actions;
 export const campersSlice = slice.reducer;

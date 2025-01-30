@@ -48,6 +48,13 @@ export enum Equipment {
   MICROWAVE = "microwave",
   KITCHEN = "kitchen",
 }
+
+export interface CamperUtility {
+  name: string | undefined;
+  value: string | boolean | undefined;
+  icon: string | undefined;
+}
+
 export interface FiltersList {
   location: string;
   vehicleType: string;

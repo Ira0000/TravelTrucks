@@ -52,7 +52,7 @@ const CampersList = () => {
         </h2>
       )}
       {isLoading && <Loader />}
-      {hasMore && !error && (
+      {!isLoading && !error && hasMore && (
         <button
           type="button"
           onClick={handleLoadMore}

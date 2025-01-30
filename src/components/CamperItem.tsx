@@ -93,7 +93,9 @@ export default function CamperItem({ camperItem }: CamperItemProps) {
         <Link
           to={`/catalog/${camperItem.id.toString()}`}
           state={location}
-          className="cursor-pointer bg-[#E44848] text-[#FFFFFF] hover:bg-[#D84343] rounded-[200px] px-10 py-4"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="w-[166px] h-[56px] flex justify-center items-center cursor-pointer bg-[#E44848] text-[#FFFFFF] hover:bg-[#D84343] rounded-[200px]"
         >
           Show more
         </Link>

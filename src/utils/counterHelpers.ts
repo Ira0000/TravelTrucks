@@ -1,21 +1,24 @@
-import { Campers } from "../../types/CampersTypes";
+import { Campers, CamperUtility } from "../../types/CampersTypes";
 
-export function countAverage(camperItem: Campers) {
-  const reviewsCount = camperItem?.reviews?.length ?? 0;
+export function countAverage(camperItem: Campers): {
+  reviewsCount: number;
+  roundedRating: number;
+} {
+  const reviewsCount: number = camperItem?.reviews?.length ?? 0;
 
-  const averageRating =
+  const averageRating: number =
     camperItem.reviews?.reduce(
       (sum, review) => sum + review.reviewer_rating,
       0
     ) ?? 0;
-  const roundedRating =
+  const roundedRating: number =
     averageRating > 0
       ? Math.round((averageRating / reviewsCount) * 10) / 10
       : 0;
   return { reviewsCount, roundedRating };
 }
 
-export function filterCamperUtilities(camperItem: Campers) {
+export function filterCamperUtilities(camperItem: Campers): CamperUtility[] {
   const camperItemUtilities = [
     {
       name: camperItem.transmission,

@@ -1,4 +1,3 @@
-import { fetchCampers } from "./operations";
 import { ApiResponseCampers } from "./../../../types/CampersResponse";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";

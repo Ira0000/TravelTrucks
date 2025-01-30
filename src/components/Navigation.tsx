@@ -1,10 +1,23 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import Icon from "../utils/icon";
 import { cn } from "../utils/cn";
+import { resetFilters } from "../redux/campers/slice";
+import { useAppDispatch } from "../redux/hooks";
 
 const Navigation = () => {
-  const buildLinkClass = ({ isActive }: { isActive: boolean }) => {
-    return cn("text-s text-[#101828] ", { "text-[#D84343]": isActive });
+  const dispatch = useAppDispatch();
+  const location = useLocation();
+  const buildLinkClass = ({ isActive }: { isActive: boolean }): string => {
+    return cn("text-s text-[#101828] ", {
+      "text-[#D84343] pointer-events-none cursor-default": isActive,
+    });
+  };
+
+  const handleNavLinkClick = (to: string): void => {
+    if (location.pathname !== to) {
+      // Only dispatch if not already on the page
+      dispatch(resetFilters());
+    }
   };
 
   return (
@@ -16,12 +29,14 @@ const Navigation = () => {
         <NavLink
           to="/"
           className={({ isActive }) => buildLinkClass({ isActive })}
+          onClick={() => handleNavLinkClick("/")}
         >
           Home
         </NavLink>
         <NavLink
           to="/catalog"
           className={({ isActive }) => buildLinkClass({ isActive })}
+          onClick={() => handleNavLinkClick("/catalog")}
         >
           Catalog
         </NavLink>

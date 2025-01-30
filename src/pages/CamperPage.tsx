@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { fetchCampersById } from "../redux/campers/operations";
 import {
   selectOneCamper,
@@ -8,11 +8,25 @@ import {
 } from "../redux/campers/selectors";
 import { Campers } from "../../types/CampersTypes";
 import Icon from "../utils/icon";
-import { countAverage, filterCamperUtilities } from "../utils/counterHelpers";
+import { countAverage } from "../utils/counterHelpers";
 import { cn } from "../utils/cn";
 import Loader from "../components/Loader/Loader";
+import CamperReviews from "../components/CamperReviews";
+import CamperFeatures from "../components/CamperFeatures";
 
 const CamperPage = () => {
+  const buildLinkClass = (tab: boolean): string => {
+    return cn(
+      "text-xl leading-[24px] font-semibold text-[#101828] relative pb-6 cursor-pointer",
+      {
+        "after:absolute after:bottom-0 after:left-0 after:h-[5px] after:w-full after:bg-[#E44848] after:z-10":
+          tab,
+      }
+    );
+  };
+
+  const [activeTab, setActiveTab] = useState(false);
+
   const { id } = useParams();
   const dispatch = useAppDispatch();
   useEffect(() => {
@@ -26,9 +40,7 @@ const CamperPage = () => {
   const { reviewsCount, roundedRating } = camperItem
     ? countAverage(camperItem)
     : { reviewsCount: 0, roundedRating: 0 };
-  const camperItemUtilities = camperItem
-    ? filterCamperUtilities(camperItem)
-    : [];
+
   if (isLoading) {
     return <Loader />;
   }
@@ -36,28 +48,14 @@ const CamperPage = () => {
   if (!camperItem) {
     return <div>No camper found</div>;
   }
+
   return (
-    <div>
-      <div className="w-131">
-        <div className="flex justify-between mb-2">
-          <h2 className="font-semibold text-2xl leading-[32px] w-[339px] truncate">
-            {camperItem.name}
-          </h2>
-          <div className="flex items-center gap-3">
-            <p className="font-semibold text-2xl leading-[32px]">
-              €{camperItem.price}.00
-            </p>
-            <button className="cursor-pointer justify-center items-center">
-              <Icon
-                id="icon-heart"
-                h={24}
-                w={26}
-                className="hover:fill-[#E44848]"
-              />
-            </button>
-          </div>
-        </div>
-        <div className="flex gap-4 items-center mb-6">
+    <div className="flex flex-col gap-7 px-16 py-12">
+      <div className="flex flex-col gap-2">
+        <h2 className="font-semibold text-2xl leading-[32px]">
+          {camperItem.name}
+        </h2>
+        <div className="flex items-center gap-4 mb-2">
           <div className="flex items-center gap-1">
             <Icon
               id="icon-yellow-star"
@@ -76,32 +74,53 @@ const CamperPage = () => {
             </p>
           </div>
         </div>
-        <p className="mb-6 w-131 font-normal text-base leading-[24px] text-[#475467] truncate">
-          {camperItem.description}
+        <p className="font-semibold text-2xl leading-[32px]">
+          €{camperItem.price}.00
         </p>
-        <ul className="flex flex-wrap gap-2 w-100 mb-6">
-          {camperItemUtilities.slice(0, 4).map((utility, index) => {
-            return (
-              <li
-                key={`${camperItem.id}-feature-${index}`}
-                className="flex justify-center items-center gap-2 capitalize font-medium text-base leading-[24px] bg-[#F2F4F7] rounded-[100px] px-[18px] py-[12px]"
-              >
-                <Icon
-                  id={utility.icon}
-                  w={20}
-                  h={20}
-                  className={cn("", {
-                    "stroke-[#000000] fill-transparent":
-                      utility.icon === "icon-water" ||
-                      utility.icon === "icon-microwave" ||
-                      utility.icon === "icon-gas-stove",
-                  })}
-                />
-                {utility.name}
-              </li>
-            );
-          })}
-        </ul>
+      </div>
+      <ul className="flex gap-12">
+        {camperItem.gallery?.map((photo, index) => {
+          return (
+            <li
+              key={`gallery-${camperItem.id}-${index}`}
+              className="w-73 overflow-hidden h-78  rounded-[10px]"
+            >
+              <img
+                className="object-cover size-full"
+                src={photo.thumb}
+                alt="Camper"
+              />
+            </li>
+          );
+        })}
+      </ul>
+      <p className="mb-8 font-normal text-base leading-[24px] text-[#475467]">
+        {camperItem.description}
+      </p>
+      <div>
+        <div className="relative mb-11">
+          <div className="flex gap-10">
+            <button
+              onClick={() => setActiveTab(false)}
+              className={buildLinkClass(activeTab === false)}
+            >
+              Features
+            </button>
+            <button
+              onClick={() => setActiveTab(true)}
+              className={buildLinkClass(activeTab === true)}
+            >
+              Reviews
+            </button>
+          </div>
+          <hr className="absolute bottom-0.5 left-0 w-full h-[1px] bg-[#DADDE1] border-0" />
+        </div>
+
+        {activeTab ? (
+          <CamperReviews camperItem={camperItem} />
+        ) : (
+          <CamperFeatures camperItem={camperItem} />
+        )}
       </div>
     </div>
   );
