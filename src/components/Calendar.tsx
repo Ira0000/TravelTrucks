@@ -24,7 +24,7 @@ export default function Calendar({ control, name }: FormCalendarProps) {
             onChange={onChange}
             placeholderText="Booking Date*"
             dateFormat="dd/MM/yyyy" // Customize date format
-            className="h-[60px] w-full rounded-[12px]  bg-[#F7F7F7] p-[18px] text-base font-normal leading-[24px] outline-none transition-colors placeholder:text-[#10182899]" // Apply your styles
+            className="custom h-[60px] w-full rounded-[12px]  bg-[#F7F7F7] p-[18px] text-base font-normal leading-[24px] outline-none transition-colors placeholder:text-[#10182899]" // Apply your styles
             {...rest}
           />
         )}
