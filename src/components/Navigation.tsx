@@ -8,7 +8,7 @@ export default function Navigation() {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const buildLinkClass = ({ isActive }: { isActive: boolean }): string => {
-    return cn("text-s text-[#101828] ", {
+    return cn("text-s text-[#101828] cursor-pointer ", {
       "text-[#D84343] pointer-events-none": isActive,
     });
   };
@@ -21,11 +21,11 @@ export default function Navigation() {
   };
 
   return (
-    <header className="sticky top-0 flex items-center justify-center bg-[#F2F4F7] p-6 border border-[#F2F4F7] z-50 shadow-sm w-full">
-      <Link to="/" className="absolute top-7 left-16 cursor-pointer">
+    <header className="sticky top-0 p-4 md:p-6 flex justify-end lg:justify-center  bg-[#F2F4F7] border border-[#F2F4F7] z-50 shadow-sm w-full">
+      <Link to="/" className="absolute top-7  left-2 md:left-16 cursor-pointer">
         <Icon id="icon-logo" h={16} w={136} />
       </Link>
-      <nav className="flex gap-8">
+      <nav className="flex gap-3 md:gap-8 flex-col md:flex-row">
         <NavLink
           to="/"
           className={({ isActive }) => buildLinkClass({ isActive })}

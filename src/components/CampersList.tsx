@@ -31,26 +31,26 @@ export default function CampersList() {
     dispatch(fetchCampers());
   };
 
-  return (
-    <div className="flex flex-col gap-10">
-      {!error ? (
-        <ul className="flex flex-col gap-8">
-          {list.map((item) => {
-            return (
-              <li
-                key={item.id}
-                className="flex gap-6 border rounded-[20px] border-[#DADDE1] p-6"
-              >
-                <CamperItem camperItem={item} />
-              </li>
-            );
-          })}
-        </ul>
-      ) : (
+  if (error)
+    return (
+      <div>
         <h2 className="font-semibold text-2xl leading-[32px] w-[339px] truncate">
           No Campers to show
         </h2>
-      )}
+      </div>
+    );
+
+  return (
+    <div className="flex flex-col gap-10 ">
+      <ul className="flex flex-col gap-3 lg:gap-8">
+        {list.map((item) => {
+          return (
+            <li key={item.id} className="">
+              <CamperItem camperItem={item} />
+            </li>
+          );
+        })}
+      </ul>
       {isLoading && <Loader />}
       {!isLoading && !error && hasMore && (
         <button

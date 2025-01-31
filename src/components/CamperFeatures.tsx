@@ -12,8 +12,8 @@ export default function CamperFeatures({ camperItem }: CamperFeaturesProps) {
     ? filterCamperUtilities(camperItem)
     : [];
   return (
-    <div className="flex flex-col px-13 py-11 w-[631px] h-[588px] justify-between bg-[#F7F7F7] rounded-[10px]">
-      <ul className="flex flex-wrap gap-2 w-[527px]">
+    <div className="flex flex-col px-3 py-5 lg:px-13 lg:py-11 lg:w-[631px] lg:h-[588px] justify-between bg-[#F7F7F7] rounded-[10px]">
+      <ul className="flex flex-wrap gap-2 lg:w-[527px] w-full">
         {camperItemUtilities.map((utility, index) => {
           return (
             <li

@@ -1,35 +1,30 @@
 import * as yup from "yup";
 
-interface BookingForm {
-  name: string;
-  email: string;
-  bookingDate: Date;
-  comment?: string | undefined;
-}
-
-const validationSchemaBookingForm = yup.object().shape({
+const bookingValidationSchema = yup.object().shape({
   name: yup
     .string()
-    .min(3, "Name is too short!")
-    .max(25, "Name is too long!")
-    .required("Name is required."),
+    .required("Name is required")
+    .min(2, "Name must be at least 2 characters")
+    .max(50, "Name must not exceed 50 characters"),
+
   email: yup
     .string()
-    .email("Please enter a valid email address.")
-    .min(2, "Email is too short!")
-    .max(50, "Email is too long!")
-    .matches(/[@]/, "Please enter a valid email address.")
-    .required("Email is required."),
+    .required("Email is required")
+    .email("Please enter a valid email address"),
+
   bookingDate: yup
     .date()
-    .transform((value, originalValue) => {
-      // Transform empty string to undefined
-      return originalValue === "" ? undefined : value;
-    })
-    .required("Booking date is required"),
-  comment: yup.string().max(200, "Comment is too long!"),
+    .nullable()
+    .required("Booking date is required")
+    .min(new Date(), "Booking date cannot be in the past")
+    .typeError("Please select a valid date"),
+
+  comment: yup
+    .string()
+    .max(500, "Comment must not exceed 500 characters")
+    .nullable(),
 });
 
-export type BookingFormValues = BookingForm;
+export type BookingFormData = yup.InferType<typeof bookingValidationSchema>;
 
-export default validationSchemaBookingForm;
+export default bookingValidationSchema;

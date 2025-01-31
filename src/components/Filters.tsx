@@ -4,6 +4,7 @@ import { cn } from "../utils/cn";
 import { changeFilter } from "../redux/campers/slice";
 import { useAppDispatch } from "../redux/hooks";
 import { Equipment } from "../../types/CampersTypes";
+import { Dispatch, SetStateAction } from "react";
 
 interface FormValues {
   location: string;
@@ -11,8 +12,12 @@ interface FormValues {
   equipment: Equipment[];
 }
 
-export default function Filters() {
-  const { register, handleSubmit } = useForm<FormValues>({
+interface FilterProps {
+  setIsFilterOpen: Dispatch<SetStateAction<boolean>>;
+}
+
+export default function Filters({ setIsFilterOpen }: FilterProps) {
+  const { register, handleSubmit, watch } = useForm<FormValues>({
     defaultValues: {
       location: "",
       vehicleType: "",
@@ -21,8 +26,13 @@ export default function Filters() {
   });
 
   const dispatch = useAppDispatch();
-  const onSubmit: SubmitHandler<FormValues> = (data) =>
+  const onSubmit: SubmitHandler<FormValues> = (data) => {
+    setIsFilterOpen(false);
     dispatch(changeFilter(data));
+  };
+
+  const watchVehicleType = watch("vehicleType");
+  const watchEquipment = watch("equipment");
 
   const vehicleTypes = [
     { name: "Panel Truck", icon: "icon-grid-3" },
@@ -43,7 +53,7 @@ export default function Filters() {
 
   return (
     <form
-      className="w-[360px] flex flex-col gap-10"
+      className="md:w-[300px] lg:w-[360px] flex flex-col gap-3 md:gap-10"
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className="flex flex-col gap-2">
@@ -58,7 +68,7 @@ export default function Filters() {
             id="location"
             type="text"
             {...register("location")}
-            className="pl-[48px] w-90 bg-[#F7F7F7] h-14 rounded-2xl focus:outline-none focus:fill-[#101828] placeholder:text-[#6C717B] text-[#101828] font-normal text-base leading-[24px]"
+            className="pl-[48px] w-[343px] md:w-[300px] lg:w-90 bg-[#F7F7F7] h-14 rounded-2xl focus:outline-none focus:fill-[#101828] placeholder:text-[#6C717B] text-[#101828] font-normal text-base leading-[24px]"
             placeholder="City"
           />
           <Icon
@@ -70,16 +80,16 @@ export default function Filters() {
         </div>
       </div>
 
-      <div className="flex flex-col gap-8">
+      <div className="flex flex-col gap-4 md:gap-8">
         <p className="font-medium text-base leading-[24px] text-[#475467]">
           Filters
         </p>
         <div className="flex flex-col gap-6">
-          <label className=" font-semibold text-xl leading-[24px] mb-6">
+          <label className=" font-semibold text-xl leading-[24px] mb-0 md:mb-6">
             Vehicle Equipment
           </label>
           <hr className="border border-[#DADDE1]" />
-          <ul className="grid grid-cols-3 gap-3">
+          <ul className="grid grid-cols-3 gap-2 md:gap-3">
             {equipmentOptions.map((item, index) => (
               <li key={index} className="relative">
                 <input
@@ -91,7 +101,12 @@ export default function Filters() {
                 />
                 <label
                   htmlFor={item.name}
-                  className="flex flex-col gap-2 items-center rounded-xl justify-center border border-[#DADDE1] w-[112px] h-[96px] transition-colors duration-200 cursor-pointer hover:border-[#101828] peer-checked:!border-[#E44848]"
+                  className={cn(
+                    "flex flex-col gap-2 items-center rounded-xl justify-center border border-[#DADDE1] w-full h-[96px] transition-colors duration-200 cursor-pointer",
+                    {
+                      "!border-[#E44848]": watchEquipment.includes(item.name),
+                    }
+                  )}
                 >
                   <Icon
                     id={item.icon}
@@ -111,8 +126,8 @@ export default function Filters() {
           </ul>
         </div>
 
-        <div className="flex flex-col gap-8">
-          <label className="font-semibold text-xl leading-[24px] mb-6">
+        <div className="flex flex-col gap-4 md:gap-8">
+          <label className="font-semibold text-xl leading-[24px] mb-0 md:mb-6">
             Vehicle Type
           </label>
           <hr className="border border-[#DADDE1]" />
@@ -128,7 +143,12 @@ export default function Filters() {
                 />
                 <label
                   htmlFor={type.name}
-                  className="flex flex-col gap-2 items-center rounded-xl justify-center border border-[#DADDE1] w-[112px] h-[96px] transition-colors duration-200 cursor-pointer hover:border-[#101828] peer-checked:!border-[#E44848]"
+                  className={cn(
+                    "flex flex-col gap-2 items-center rounded-xl justify-center border border-[#DADDE1] w-full h-[96px] transition-colors duration-200 cursor-pointer",
+                    {
+                      "border-[#E44848]": watchVehicleType === type.name,
+                    }
+                  )}
                 >
                   <Icon id={type.icon} w={32} h={32} />
                   <p className="capitalize text-center">{type.name}</p>

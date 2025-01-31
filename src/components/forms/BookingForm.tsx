@@ -1,31 +1,137 @@
-import { useForm } from "react-hook-form";
-import validationSchemaBookingForm, {
-  BookingFormValues,
-} from "./validationSchemaBookinForm";
+import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import Input from "../Input";
-import Textarea from "../Textarea";
-import "react-datepicker/dist/react-datepicker.css";
-import Calendar from "../Calendar";
+import DatePicker from "react-datepicker";
 import toast, { Toaster } from "react-hot-toast";
+import "react-datepicker/dist/react-datepicker.css";
+import bookingValidationSchema, {
+  BookingFormData,
+} from "./validationSchemaBookinForm";
+
+// Form values type
+// interface BookingFormValues {
+//   name: string;
+//   email: string;
+//   bookingDate: Date | null;
+//   comment: string | null | undefined;
+// }
+
+// Input component
+const Input = ({
+  control,
+  name,
+  placeholder,
+  type,
+  required,
+}: {
+  control: any;
+  name: string;
+  placeholder: string;
+  type: string;
+  required?: boolean;
+}) => {
+  return (
+    <Controller
+      name={name}
+      control={control}
+      render={({ field, fieldState: { error } }) => (
+        <div className="flex flex-col">
+          <input
+            {...field}
+            type={type}
+            required={required}
+            placeholder={placeholder}
+            className="h-[60px] w-full rounded-[12px] bg-[#F7F7F7] p-[18px] text-base font-normal leading-[24px] outline-none transition-colors placeholder:text-[#10182899]"
+          />
+          {error && (
+            <p className="mt-[10px] text-sm text-red-500">{error.message}</p>
+          )}
+        </div>
+      )}
+    />
+  );
+};
+
+// Textarea component
+const Textarea = ({
+  control,
+  name,
+  placeholder,
+  className,
+}: {
+  control: any;
+  name: string;
+  placeholder: string;
+  className?: string;
+}) => {
+  return (
+    <Controller
+      name={name}
+      control={control}
+      render={({ field, fieldState: { error } }) => (
+        <div className="flex flex-col">
+          <textarea
+            {...field}
+            placeholder={placeholder}
+            className={`w-full rounded-[12px] bg-[#F7F7F7] p-[18px] text-base font-normal leading-[24px] outline-none transition-colors placeholder:text-[#10182899] ${className}`}
+          />
+          {error && (
+            <p className="mt-[10px] text-sm text-red-500">{error.message}</p>
+          )}
+        </div>
+      )}
+    />
+  );
+};
+
+// Calendar component
+const Calendar = ({
+  control,
+  name,
+}: {
+  control: any;
+  name: string;
+  required?: boolean;
+}) => {
+  return (
+    <Controller
+      name={name}
+      control={control}
+      render={({ field: { onChange, value }, fieldState: { error } }) => (
+        <div className="flex flex-col">
+          <DatePicker
+            selected={value}
+            onChange={onChange}
+            placeholderText="Booking Date*"
+            dateFormat="dd/MM/yyyy"
+            className="h-[60px] w-full rounded-[12px] bg-[#F7F7F7] p-[18px] text-base font-normal leading-[24px] outline-none transition-colors placeholder:text-[#10182899]"
+          />
+          {error && (
+            <p className="mt-[10px] text-sm text-red-500">{error.message}</p>
+          )}
+        </div>
+      )}
+    />
+  );
+};
 
 export default function BookingForm() {
   const {
     control,
     handleSubmit,
     formState: { isSubmitting },
-  } = useForm<BookingFormValues>({
-    resolver: yupResolver(validationSchemaBookingForm),
+  } = useForm<BookingFormData>({
+    resolver: yupResolver(bookingValidationSchema),
     defaultValues: {
       name: "",
       email: "",
       bookingDate: undefined,
-      comment: "",
+      comment: null,
     },
+    mode: "onBlur", // Validate on blur for better UX
   });
 
-  const onSubmit = async (data: BookingFormValues) => {
-    toast.success(`${data.name}, you request was submitted!`, {
+  const onSubmit = async (data: BookingFormData) => {
+    toast.success(`${data.name}, your request was submitted!`, {
       duration: 4000,
       position: "top-right",
     });
@@ -35,7 +141,7 @@ export default function BookingForm() {
     <>
       <Toaster />
       <form
-        className="px-11 py-[57px] w-[641px] h-[588px] border border-[#DADDE1] rounded-[10px]"
+        className="px-3 py-5 w-full lg:px-11 lg:py-[57px] lg:w-[641px] lg:h-[588px] border border-[#DADDE1] rounded-[10px]"
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="flex flex-col gap-6">
@@ -48,35 +154,27 @@ export default function BookingForm() {
             </p>
           </div>
           <div className="flex flex-col gap-[14px]">
-            <div className="">
-              <Input
-                control={control}
-                name="name"
-                placeholder="Name*"
-                type="name"
-                required={true}
-              />
-            </div>
-            <div className="">
-              <Input
-                control={control}
-                name="email"
-                placeholder="Email*"
-                type="email"
-                required={true}
-              />
-            </div>
-            <div>
-              <Calendar control={control} name="bookingDate" />
-            </div>
-            <div className="">
-              <Textarea
-                control={control}
-                name="comment"
-                placeholder="Comment"
-                className="h-[118px]"
-              />
-            </div>
+            <Input
+              control={control}
+              name="name"
+              placeholder="Name*"
+              type="text"
+              required
+            />
+            <Input
+              control={control}
+              name="email"
+              placeholder="Email*"
+              type="email"
+              required
+            />
+            <Calendar control={control} name="bookingDate" />
+            <Textarea
+              control={control}
+              name="comment"
+              placeholder="Comment"
+              className="h-[118px]"
+            />
           </div>
           <button
             type="submit"

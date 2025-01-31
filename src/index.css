@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+@theme {
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1440px;
+  --breakpoint-s: 320px;
+}
+
 /* Remove number input arrows */
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
@@ -9,8 +15,4 @@ input[type="number"]::-webkit-inner-spin-button {
 
 input[type="number"] {
   -moz-appearance: textfield;
-}
-
-.custom .react-datepicker__month-container {
-  border: none;
 }

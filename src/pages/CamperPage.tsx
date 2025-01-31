@@ -51,7 +51,7 @@ export default function CamperPage() {
   }
 
   return (
-    <div className="flex flex-col gap-7 px-16 py-12">
+    <div className="flex flex-col lg:gap-7 lg:px-16 lg:py-12 gap-3 px-3 py-5">
       <div className="flex flex-col gap-2">
         <h2 className="font-semibold text-2xl leading-[32px]">
           {camperItem.name}
@@ -79,12 +79,12 @@ export default function CamperPage() {
           €{camperItem.price}.00
         </p>
       </div>
-      <ul className="flex gap-12">
+      <ul className="flex flex-col md:flex-row md:flex-wrap gap-5 lg:gap-12 mx-auto lg:mx-0">
         {camperItem.gallery?.map((photo, index) => {
           return (
             <li
               key={`gallery-${camperItem.id}-${index}`}
-              className="w-73 overflow-hidden h-78  rounded-[10px]"
+              className="w-full md:w-73 lg:w-73 overflow-hidden h-78  rounded-[10px]"
             >
               <img
                 className="object-cover size-full"
@@ -118,7 +118,7 @@ export default function CamperPage() {
             <hr className="absolute bottom-0.5 left-0 w-full h-[1px] bg-[#DADDE1] border-0" />
           </div>
         </div>
-        <div className="flex gap-10">
+        <div className="flex flex-col lg:flex-row gap-10 w-full">
           {activeTab ? (
             <CamperReviews camperItem={camperItem} />
           ) : (
