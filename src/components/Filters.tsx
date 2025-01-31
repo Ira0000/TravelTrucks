@@ -40,15 +40,15 @@ export default function Filters({ setIsFilterOpen }: FilterProps) {
     { name: "Alcove", icon: "icon-grid-9" },
   ];
   const equipmentOptions = [
-    { name: "kitchen", icon: "icon-cup-hot" },
-    { name: "AC", icon: "icon-wind" },
-    { name: "bathroom", icon: "icon-shower" },
-    { name: "TV", icon: "icon-tv" },
-    { name: "radio", icon: "icon-ui-radios" },
-    { name: "refrigerator", icon: "icon-fridge" },
-    { name: "microwave", icon: "icon-microwave" },
-    { name: "gas", icon: "icon-gas-stove" },
-    { name: "water", icon: "icon-water" },
+    { name: Equipment.KITCHEN, icon: "icon-cup-hot" },
+    { name: Equipment.AC, icon: "icon-wind" },
+    { name: Equipment.BATHROOM, icon: "icon-shower" },
+    { name: Equipment.TV, icon: "icon-tv" },
+    { name: Equipment.RADIO, icon: "icon-ui-radios" },
+    { name: Equipment.REFRIGERATOR, icon: "icon-fridge" },
+    { name: Equipment.MICROWAVE, icon: "icon-microwave" },
+    { name: Equipment.GAS, icon: "icon-gas-stove" },
+    { name: Equipment.WATER, icon: "icon-water" },
   ];
 
   return (
