@@ -52,7 +52,7 @@ export enum Equipment {
 export interface CamperUtility {
   name: string | undefined;
   value: string | boolean | undefined;
-  icon: string | undefined;
+  icon: string;
 }
 
 export interface FiltersList {
