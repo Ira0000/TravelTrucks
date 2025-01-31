@@ -19,10 +19,7 @@ const bookingValidationSchema = yup.object().shape({
     .min(new Date(), "Booking date cannot be in the past")
     .typeError("Please select a valid date"),
 
-  comment: yup
-    .string()
-    .max(500, "Comment must not exceed 500 characters")
-    .nullable(),
+  comment: yup.string().max(500, "Comment must not exceed 500 characters"),
 });
 
 export type BookingFormData = yup.InferType<typeof bookingValidationSchema>;

@@ -56,7 +56,7 @@ export default function CampersList() {
         <button
           type="button"
           onClick={handleLoadMore}
-          className="cursor-pointer self-center w-[145px] h-[56px] rounded-[200px]  border border-[#DADDE1] tracking-tighter font-medium text-base leading-[24px] hover:border-[#D84343]"
+          className="cursor-pointer self-center w-[145px] h-[56px] rounded-[200px]  border border-[#DADDE1] tracking-tighter font-medium text-base leading-[24px] hover:border-[#D84343] transition-colors"
         >
           Load more
         </button>

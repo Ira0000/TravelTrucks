@@ -64,7 +64,7 @@ export default function CamperItem({ camperItem }: CamperItemProps) {
                 id="icon-heart"
                 h={24}
                 w={26}
-                className={cn("hover:fill-[#E44848]", {
+                className={cn("hover:fill-[#E44848] transition-colors", {
                   "fill-[#E44848]": checkIfFavourite(camperItem),
                   "fill-[#101828]": !checkIfFavourite(camperItem),
                 })}
@@ -122,7 +122,7 @@ export default function CamperItem({ camperItem }: CamperItemProps) {
           state={location}
           target="_blank"
           rel="noopener noreferrer"
-          className="mx-auto md:mx-0 w-[166px] h-[56px] flex justify-center items-center cursor-pointer bg-[#E44848] text-[#FFFFFF] hover:bg-[#D84343] rounded-[200px]"
+          className="mx-auto md:mx-0 w-[166px] h-[56px] flex justify-center items-center cursor-pointer bg-[#E44848] text-[#FFFFFF] hover:bg-[#D84343] rounded-[200px] transition-colors"
         >
           Show more
         </Link>

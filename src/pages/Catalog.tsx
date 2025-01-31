@@ -23,7 +23,7 @@ export default function Catalog() {
       <div className="fixed top-15  z-50 md:hidden">
         <button
           onClick={() => setIsFilterOpen(true)}
-          className="bg-transparent text-[#E44848] size-5 cursor-pointer hover:text-[#D84343]"
+          className="bg-transparent text-[#E44848] size-5 cursor-pointer hover:text-[#D84343] transition-colors"
         >
           <FaFilter />
         </button>
@@ -35,7 +35,7 @@ export default function Catalog() {
               <h2 className="text-2xl font-bold text-[#E44848]">Filters</h2>
               <button
                 onClick={() => setIsFilterOpen(false)}
-                className="text-3xl text-[#E44848] hover:text-red-700"
+                className="text-3xl text-[#E44848] hover:text-red-700 transition-colors"
               >
                 &times;
               </button>

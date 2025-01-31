@@ -68,7 +68,7 @@ export default function Filters({ setIsFilterOpen }: FilterProps) {
             id="location"
             type="text"
             {...register("location")}
-            className="pl-[48px] w-[343px] md:w-[300px] lg:w-90 bg-[#F7F7F7] h-14 rounded-2xl focus:outline-none focus:fill-[#101828] placeholder:text-[#6C717B] text-[#101828] font-normal text-base leading-[24px]"
+            className="pl-[48px] w-[343px] md:w-[300px] lg:w-90 bg-[#F7F7F7] h-14 rounded-2xl focus:outline-none focus:fill-[#101828] hover:fill-[#101828] placeholder:text-[#6C717B] text-[#101828] font-normal text-base leading-[24px] transition-colors"
             placeholder="City"
           />
           <Icon
@@ -102,7 +102,7 @@ export default function Filters({ setIsFilterOpen }: FilterProps) {
                 <label
                   htmlFor={item.name}
                   className={cn(
-                    "flex flex-col gap-2 items-center rounded-xl justify-center border border-[#DADDE1] w-full h-[96px] transition-colors duration-200 cursor-pointer",
+                    "flex flex-col gap-2 items-center rounded-xl justify-center border border-[#DADDE1] w-full h-[96px] transition-colors duration-200 cursor-pointer hover:border-[#E44848]",
                     {
                       "!border-[#E44848]": watchEquipment.includes(item.name),
                     }
@@ -144,7 +144,7 @@ export default function Filters({ setIsFilterOpen }: FilterProps) {
                 <label
                   htmlFor={type.name}
                   className={cn(
-                    "flex flex-col gap-2 items-center rounded-xl justify-center border border-[#DADDE1] w-full h-[96px] transition-colors duration-200 cursor-pointer",
+                    "flex flex-col gap-2 items-center rounded-xl justify-center border border-[#DADDE1] w-full h-[96px] transition-colors duration-200 cursor-pointer hover:border-[#E44848]",
                     {
                       "border-[#E44848]": watchVehicleType === type.name,
                     }

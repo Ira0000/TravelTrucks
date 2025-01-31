@@ -15,7 +15,6 @@ export default function Navigation() {
 
   const handleNavLinkClick = (to: string): void => {
     if (location.pathname !== to) {
-      // Only dispatch if not already on the page
       dispatch(resetFilters());
     }
   };
