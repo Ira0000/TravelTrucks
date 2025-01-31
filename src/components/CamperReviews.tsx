@@ -19,7 +19,7 @@ export default function CamperReviews({ camperItem }: CamperFeaturesProps) {
     return stars;
   };
   return (
-    <ul className="flex flex-col gap-11 py-3 w-[631px] h-[588px] ">
+    <ul className="flex flex-col gap-5 lg:gap-11 py-3 w-full lg:w-[631px] lg:h-[588px] ">
       {camperItem.reviews?.map((review, index) => {
         return (
           <li

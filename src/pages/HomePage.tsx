@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 const HomePage = () => {
   return (
     <div
-      className="flex flex-col text-[#F7F7F7] pl-16 justify-center bg-[url(/public/hero_1x.avif)] bg-cover bg-center 
+      className="flex flex-col text-[#F7F7F7]  pl-2 md:pl-16 justify-center bg-[url(/public/hero_1x.avif)] bg-cover bg-center 
           h-screen"
     >
-      <h1 className="font-semibold text-5xl leading-[32px] mb-4">
+      <h1 className="font-semibold text-5xl leading-[48px] md:leading-[32px] mb-4">
         Campers of your dreams
       </h1>
       <p className="font-semibold text-2xl leading-[32px] mb-10">

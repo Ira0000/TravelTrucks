@@ -39,20 +39,20 @@ export default function CamperItem({ camperItem }: CamperItemProps) {
   }
 
   return (
-    <>
-      <div className="w-73 overflow-hidden h-80  rounded-[10px]">
+    <div className="flex flex-col lg:flex-row gap-6 border rounded-[20px] border-[#DADDE1] p-4 lg:p-6 lg:w-[888px] md:w-[425px]">
+      <div className="lg:w-73 w-full overflow-hidden h-80  rounded-[10px]">
         <img
           className="object-cover w-full h-full"
           src={smallImageLink}
           alt={camperItem.name}
         />
       </div>
-      <div className="w-131">
-        <div className="flex justify-between mb-2">
-          <h2 className="font-semibold text-2xl leading-[32px] w-[339px] truncate">
+      <div className="lg:w-131">
+        <div className="flex flex-col lg:flex-row lg:justify-between mb-2">
+          <h2 className="font-semibold text-2xl leading-[32px] lg:w-[339px] truncate">
             {camperItem.name}
           </h2>
-          <div className="flex items-center gap-3">
+          <div className="flex justify-between md:items-center gap-3">
             <p className="font-semibold text-2xl leading-[32px]">
               €{camperItem.price}.00
             </p>
@@ -91,10 +91,10 @@ export default function CamperItem({ camperItem }: CamperItemProps) {
             </p>
           </div>
         </div>
-        <p className="mb-6 w-131 font-normal text-base leading-[24px] text-[#475467] truncate">
+        <p className="mb-6 lg:w-131 font-normal text-base leading-[24px] text-[#475467] truncate">
           {camperItem.description}
         </p>
-        <ul className="flex flex-wrap gap-2 w-100 mb-6">
+        <ul className="flex flex-wrap gap-2 md:w-100 mb-6">
           {camperItemUtilities.slice(0, 4).map((utility, index) => {
             return (
               <li
@@ -122,11 +122,11 @@ export default function CamperItem({ camperItem }: CamperItemProps) {
           state={location}
           target="_blank"
           rel="noopener noreferrer"
-          className="w-[166px] h-[56px] flex justify-center items-center cursor-pointer bg-[#E44848] text-[#FFFFFF] hover:bg-[#D84343] rounded-[200px]"
+          className="mx-auto md:mx-0 w-[166px] h-[56px] flex justify-center items-center cursor-pointer bg-[#E44848] text-[#FFFFFF] hover:bg-[#D84343] rounded-[200px]"
         >
           Show more
         </Link>
       </div>
-    </>
+    </div>
   );
 }
