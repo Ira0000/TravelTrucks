@@ -8,13 +8,15 @@ export default function Catalog() {
   const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
 
   const { width } = useViewport();
-  const breakpoint = 768;
+  const breakpoint = 767;
 
   if (width > breakpoint)
     return (
-      <div className="relative flex flex-col md:flex-row px-2 md:px-5 lg:px-16 py-5 md:py-12 gap-6 md:justify-between lg:gap-[64px] w-full">
+      <div className="relative flex flex-col md:flex-row px-2 md:px-5 lg:px-16 py-5 md:py-12 gap-6 md:gap-[20px] lg:gap-[64px] w-full">
         <Filters setIsFilterOpen={setIsFilterOpen} />
-        <CampersList />
+        <div className="w-full mx-auto">
+          <CampersList />
+        </div>
       </div>
     );
 

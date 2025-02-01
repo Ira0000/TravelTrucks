@@ -33,34 +33,34 @@ export default function CampersList() {
 
   if (error)
     return (
-      <div>
-        <h2 className="font-semibold text-2xl leading-[32px] w-[339px] truncate">
+      <div className="flex">
+        <h2 className="font-semibold text-2xl leading-[32px]  truncate">
           No Campers to show
         </h2>
       </div>
     );
 
   return (
-    <div className="flex flex-col gap-10 ">
-      <ul className="flex flex-col gap-3 lg:gap-8">
+    <>
+      <ul className="grid grid-cols-1 l:grid-cols-2 lg:grid-cols-1 gap-3 lg:gap-8">
         {list.map((item) => {
           return (
-            <li key={item.id} className="">
+            <li key={item.id} className="w-full mx-auto">
               <CamperItem camperItem={item} />
             </li>
           );
         })}
       </ul>
-      {isLoading && <Loader />}
+      <div className="w-full mx-auto">{isLoading && <Loader />}</div>
       {!isLoading && !error && hasMore && (
         <button
           type="button"
           onClick={handleLoadMore}
-          className="cursor-pointer self-center w-[145px] h-[56px] rounded-[200px]  border border-[#DADDE1] tracking-tighter font-medium text-base leading-[24px] hover:border-[#D84343] transition-colors"
+          className="mt-10 mx-auto block cursor-pointer self-center w-[145px] h-[56px] rounded-[200px]  border border-[#DADDE1] tracking-tighter font-medium text-base leading-[24px] hover:border-[#D84343] transition-colors"
         >
           Load more
         </button>
       )}
-    </div>
+    </>
   );
 }

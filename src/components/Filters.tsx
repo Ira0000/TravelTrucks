@@ -29,6 +29,7 @@ export default function Filters({ setIsFilterOpen }: FilterProps) {
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     setIsFilterOpen(false);
     dispatch(changeFilter(data));
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const watchVehicleType = watch("vehicleType");

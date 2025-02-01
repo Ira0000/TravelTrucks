@@ -1,8 +1,8 @@
 import { ThreeDots } from "react-loader-spinner";
 
-export default function Loader() {
+export default function LoaderMain() {
   return (
-    <div className="flex justify-center items-center mx-auto">
+    <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-opacity-50 bg-gray-200">
       <ThreeDots
         visible={true}
         height="80"
