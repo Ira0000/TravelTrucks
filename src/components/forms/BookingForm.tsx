@@ -7,14 +7,6 @@ import bookingValidationSchema, {
   BookingFormData,
 } from "./validationSchemaBookinForm";
 
-// Form values type
-// interface BookingFormValues {
-//   name: string;
-//   email: string;
-//   bookingDate: Date | null;
-//   comment: string | null | undefined;
-// }
-
 // Input component
 const Input = ({
   control,
@@ -40,7 +32,7 @@ const Input = ({
             type={type}
             required={required}
             placeholder={placeholder}
-            className="h-[60px] w-full rounded-[12px] bg-[#F7F7F7] p-[18px] text-base font-normal leading-[24px] outline-none transition-colors placeholder:text-[#10182899]"
+            className="h-[60px] w-full rounded-[12px] bg-[#F7F7F7] p-[18px] text-base font-normal leading-[24px] outline-none transition-colors placeholder:text-[#10182899] hover:bg-[#F2F4F7]"
           />
           {error && (
             <p className="mt-[10px] text-sm text-red-500">{error.message}</p>
@@ -72,7 +64,7 @@ const Textarea = ({
           <textarea
             {...field}
             placeholder={placeholder}
-            className={`w-full rounded-[12px] bg-[#F7F7F7] p-[18px] text-base font-normal leading-[24px] outline-none transition-colors placeholder:text-[#10182899] ${className}`}
+            className={`w-full rounded-[12px] bg-[#F7F7F7] p-[18px] text-base font-normal leading-[24px] outline-none transition-colors hover:bg-[#F2F4F7] placeholder:text-[#10182899] ${className}`}
           />
           {error && (
             <p className="mt-[10px] text-sm text-red-500">{error.message}</p>
@@ -103,7 +95,7 @@ const Calendar = ({
             onChange={onChange}
             placeholderText="Booking Date*"
             dateFormat="dd/MM/yyyy"
-            className="h-[60px] w-full rounded-[12px] bg-[#F7F7F7] p-[18px] text-base font-normal leading-[24px] outline-none transition-colors placeholder:text-[#10182899]"
+            className="h-[60px] w-full rounded-[12px] bg-[#F7F7F7] p-[18px] text-base font-normal leading-[24px] outline-none transition-colors hover:bg-[#F2F4F7] placeholder:text-[#10182899]"
           />
           {error && (
             <p className="mt-[10px] text-sm text-red-500">{error.message}</p>
@@ -125,9 +117,9 @@ export default function BookingForm() {
       name: "",
       email: "",
       bookingDate: undefined,
-      comment: null,
+      comment: "",
     },
-    mode: "onBlur", // Validate on blur for better UX
+    mode: "onBlur",
   });
 
   const onSubmit = async (data: BookingFormData) => {

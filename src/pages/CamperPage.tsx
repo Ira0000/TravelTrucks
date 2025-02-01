@@ -43,7 +43,11 @@ export default function CamperPage() {
     : { reviewsCount: 0, roundedRating: 0 };
 
   if (isLoading) {
-    return <Loader />;
+    return (
+      <div className="flex w-full items-center">
+        <Loader />
+      </div>
+    );
   }
 
   if (!camperItem) {

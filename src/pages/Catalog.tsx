@@ -8,13 +8,15 @@ export default function Catalog() {
   const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
 
   const { width } = useViewport();
-  const breakpoint = 768;
+  const breakpoint = 767;
 
   if (width > breakpoint)
     return (
-      <div className="relative flex flex-col md:flex-row px-2 md:px-5 lg:px-16 py-5 md:py-12 gap-6 md:justify-between lg:gap-[64px] w-full">
+      <div className="relative flex flex-col md:flex-row px-2 md:px-5 lg:px-16 py-5 md:py-12 gap-6 md:gap-[20px] lg:gap-[64px] w-full">
         <Filters setIsFilterOpen={setIsFilterOpen} />
-        <CampersList />
+        <div className="w-full mx-auto">
+          <CampersList />
+        </div>
       </div>
     );
 
@@ -23,7 +25,7 @@ export default function Catalog() {
       <div className="fixed top-15  z-50 md:hidden">
         <button
           onClick={() => setIsFilterOpen(true)}
-          className="bg-transparent text-[#E44848] size-5 cursor-pointer hover:text-[#D84343]"
+          className="bg-transparent text-[#E44848] size-5 cursor-pointer hover:text-[#D84343] transition-colors"
         >
           <FaFilter />
         </button>
@@ -35,7 +37,7 @@ export default function Catalog() {
               <h2 className="text-2xl font-bold text-[#E44848]">Filters</h2>
               <button
                 onClick={() => setIsFilterOpen(false)}
-                className="text-3xl text-[#E44848] hover:text-red-700"
+                className="text-3xl text-[#E44848] hover:text-red-700 transition-colors"
               >
                 &times;
               </button>

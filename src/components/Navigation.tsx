@@ -8,14 +8,16 @@ export default function Navigation() {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const buildLinkClass = ({ isActive }: { isActive: boolean }): string => {
-    return cn("text-s text-[#101828] cursor-pointer ", {
-      "text-[#D84343] pointer-events-none": isActive,
+    const isCatalogPage = location.pathname === "/catalog";
+
+    return cn("text-s text-[#101828] cursor-pointer", {
+      "text-[#D84343] pointer-events-none": isActive && isCatalogPage,
+      "text-[#D84343]": isActive && !isCatalogPage,
     });
   };
 
   const handleNavLinkClick = (to: string): void => {
     if (location.pathname !== to) {
-      // Only dispatch if not already on the page
       dispatch(resetFilters());
     }
   };
