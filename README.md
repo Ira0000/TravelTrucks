@@ -18,7 +18,11 @@
 
 - This project is a front-end web application for "TravelTrucks" - a camper rental company.
 - The application allows users to browse available campers, filter them based on various criteria, view detailed information about individual campers, add campers to their favorites, and submit booking requests.
-- What is the purpose of your project?
+- This project serves two main purposes:
+  1. Practical Skill Development:
+     The primary motivation was to gain hands-on experience in building a real-world web application using React, Redux, Tailwind, Axios and Redux Persist.
+  2. Portfolio Building:
+     This project serves as a portfolio piece demonstrating proficiency in front-end development skills.
 - Why did you undertake it?
 
 ## Technologies Used
@@ -28,6 +32,7 @@
   Redux: State management library for predictable state updates.
 - React Router: Library for handling navigation and routing.
 - Axios: HTTP client for making API requests.
+- Tailwind CSS: Utility-first CSS framework for rapid UI development.
 
 ## BackEnd API
 
