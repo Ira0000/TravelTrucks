@@ -1,11 +1,14 @@
 import { Link, useLocation } from "react-router-dom";
 import { Campers } from "types/CampersTypes";
-import { useAppDispatch, useAppSelector } from "@redux/hooks";
-import { countAverage, filterCamperUtilities } from "@utils/counterHelpers";
-import { addToFavourites, removeFromFavourites } from "@redux/favourites/slice";
-import { selectIfIsFavourite } from "@redux/favourites/selectors";
-import Icon from "@utils/icon";
-import { cn } from "@utils/cn";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { countAverage, filterCamperUtilities } from "@/utils/counterHelpers";
+import {
+  addToFavourites,
+  removeFromFavourites,
+} from "@/redux/favourites/slice";
+import { selectIfIsFavourite } from "@/redux/favourites/selectors";
+import Icon from "@/utils/icon";
+import { cn } from "@/utils/cn";
 
 interface CamperItemProps {
   camperItem: Campers;

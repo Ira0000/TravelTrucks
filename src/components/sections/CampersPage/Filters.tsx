@@ -1,11 +1,13 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Dispatch, SetStateAction } from "react";
-import { Equipment } from "../../../../types/CampersTypes";
-import { useAppDispatch } from "@redux/hooks";
-import { changeFilter } from "@redux/campers/slice";
-import Icon from "@utils/icon";
-import { cn } from "@utils/cn";
+// import { Equipment } from "types/CampersTypes";
+import { useAppDispatch } from "@/redux/hooks";
+import { changeFilter } from "@/redux/campers/slice";
+import Icon from "@/utils/icon";
+import { cn } from "@/utils/cn";
 import Button from "../../ui/Button";
+import { Equipment } from "types/CampersTypes";
+// import { Equipment } from "types/CampersTypes";
 
 interface FormValues {
   location: string;

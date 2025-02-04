@@ -1,8 +1,8 @@
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { useAppDispatch } from "@redux/hooks";
-import { cn } from "@utils/cn";
-import { resetFilters } from "@redux/campers/slice";
-import Icon from "@utils/icon";
+import { useAppDispatch } from "@/redux/hooks";
+import { cn } from "@/utils/cn";
+import { resetFilters } from "@/redux/campers/slice";
+import Icon from "@/utils/icon";
 
 export default function Navigation() {
   const dispatch = useAppDispatch();

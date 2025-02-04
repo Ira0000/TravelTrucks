@@ -1,7 +1,7 @@
 import { Campers, CamperUtility } from "types/CampersTypes";
-import { cn } from "@utils/cn";
-import { filterCamperUtilities } from "@utils/counterHelpers";
-import Icon from "@utils/icon";
+import { cn } from "@/utils/cn";
+import { filterCamperUtilities } from "@/utils/counterHelpers";
+import Icon from "@/utils/icon";
 
 interface CamperFeaturesProps {
   camperItem: Campers;

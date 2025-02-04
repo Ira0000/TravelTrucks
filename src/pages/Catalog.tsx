@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { FaFilter } from "react-icons/fa";
-import { useViewport } from "@hooks/viewportWidth";
-import Filters from "@components/sections/CampersPage/Filters";
-import CampersList from "@components/sections/CampersPage/CampersList";
+import { useViewport } from "@/hooks/viewportWidth";
+import Filters from "@/components/sections/CampersPage/Filters";
+import CampersList from "@/components/sections/CampersPage/CampersList";
 
 export default function Catalog() {
   const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);

@@ -1,5 +1,5 @@
 import { Campers } from "types/CampersTypes";
-import Icon from "@utils/icon";
+import Icon from "@/utils/icon";
 
 interface CamperFeaturesProps {
   camperItem: Campers;

@@ -1,19 +1,19 @@
 import { useParams } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "@redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { useEffect, useState } from "react";
-import { fetchCampersById } from "@redux/campers/operations";
+import { fetchCampersById } from "@/redux/campers/operations";
 import {
   selectOneCamper,
   selectOneCamperLoading,
-} from "@redux/campers/selectors";
+} from "@/redux/campers/selectors";
 import { Campers } from "types/CampersTypes";
-import Icon from "@utils/icon";
-import { countAverage } from "@utils/counterHelpers";
-import { cn } from "@utils/cn";
-import Loader from "@components/ui/Loader/Loader";
-import BookingForm from "@components/forms/BookingForm";
-import CamperReviews from "@components/sections/OneCamperPage/CamperReviews";
-import CamperFeatures from "@components/sections/OneCamperPage/CamperFeatures";
+import Icon from "@/utils/icon";
+import { countAverage } from "@/utils/counterHelpers";
+import { cn } from "@/utils/cn";
+import Loader from "@/components/ui/Loader/Loader";
+import BookingForm from "@/components/forms/BookingForm";
+import CamperReviews from "@/components/sections/OneCamperPage/CamperReviews";
+import CamperFeatures from "@/components/sections/OneCamperPage/CamperFeatures";
 
 export default function CamperPage() {
   const buildLinkClass = (tab: boolean): string => {

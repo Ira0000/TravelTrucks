@@ -5,10 +5,10 @@ import {
   selectCampersHasMorePages,
   selectCampersLoading,
   selectFilters,
-} from "@redux/campers/selectors";
-import { useAppDispatch, useAppSelector } from "@redux/hooks";
-import { incrementPage, resetPagination } from "@redux/campers/slice";
-import { fetchCampers } from "@redux/campers/operations";
+} from "@/redux/campers/selectors";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { incrementPage, resetPagination } from "@/redux/campers/slice";
+import { fetchCampers } from "@/redux/campers/operations";
 import CamperItem from "./CamperItem";
 import Loader from "../../ui/Loader/Loader";
 import Button from "../../ui/Button";
