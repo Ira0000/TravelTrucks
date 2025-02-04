@@ -1,8 +1,8 @@
 import { Link, NavLink, useLocation } from "react-router-dom";
-import Icon from "../utils/icon";
-import { cn } from "../utils/cn";
-import { resetFilters } from "../redux/campers/slice";
-import { useAppDispatch } from "../redux/hooks";
+import { useAppDispatch } from "@redux/hooks";
+import { cn } from "@utils/cn";
+import { resetFilters } from "@redux/campers/slice";
+import Icon from "@utils/icon";
 
 export default function Navigation() {
   const dispatch = useAppDispatch();
@@ -10,9 +10,9 @@ export default function Navigation() {
   const buildLinkClass = ({ isActive }: { isActive: boolean }): string => {
     const isCatalogPage = location.pathname === "/catalog";
 
-    return cn("text-s text-[#101828] cursor-pointer", {
-      "text-[#D84343] pointer-events-none": isActive && isCatalogPage,
-      "text-[#D84343]": isActive && !isCatalogPage,
+    return cn("text-s text-black cursor-pointer", {
+      "text-hoverRed pointer-events-none": isActive && isCatalogPage,
+      "text-hoverRed": isActive && !isCatalogPage,
     });
   };
 
@@ -23,11 +23,11 @@ export default function Navigation() {
   };
 
   return (
-    <header className="sticky top-0 p-4 md:p-6 flex justify-end lg:justify-center  bg-[#F2F4F7] border border-[#F2F4F7] z-50 shadow-sm w-full">
-      <Link to="/" className="absolute top-7  left-2 md:left-16 cursor-pointer">
+    <header className="sticky top-0 z-50 flex w-full justify-end border border-bgLightGray bg-bgLightGray p-4 shadow-sm md:p-6 lg:justify-center">
+      <Link to="/" className="absolute top-7 left-2 cursor-pointer md:left-16">
         <Icon id="icon-logo" h={16} w={136} />
       </Link>
-      <nav className="flex gap-3 md:gap-8 flex-col md:flex-row">
+      <nav className="flex flex-col gap-3 md:flex-row md:gap-8">
         <NavLink
           to="/"
           className={({ isActive }) => buildLinkClass({ isActive })}

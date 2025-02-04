@@ -53,7 +53,7 @@ const handlePending = (state: CampersState) => {
 
 const handleRejected = (
   state: CampersState,
-  action: PayloadAction<string | undefined>
+  action: PayloadAction<string | undefined>,
 ) => {
   state.campers.loading = false;
   const errorMessage = action.payload ?? null;
@@ -66,7 +66,7 @@ const handleCamperPending = (state: CampersState) => {
 
 const handleCamperRejected = (
   state: CampersState,
-  action: PayloadAction<string | undefined>
+  action: PayloadAction<string | undefined>,
 ) => {
   state.camper.loading = false;
   const errorMessage = action.payload ?? null;
@@ -139,7 +139,7 @@ const slice = createSlice({
           }
           state.campers.hasMore =
             action.payload.items.length >= state.campers.itemsPerPage;
-        }
+        },
       )
       .addCase(fetchCampers.rejected, handleRejected)
       .addCase(fetchCampersById.pending, handleCamperPending)
@@ -149,7 +149,7 @@ const slice = createSlice({
           state.camper.loading = false;
           state.camper.error = null;
           state.camper.item = action.payload;
-        }
+        },
       )
       .addCase(fetchCampersById.rejected, handleCamperRejected);
   },

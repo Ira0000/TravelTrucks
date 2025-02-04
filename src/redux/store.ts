@@ -20,7 +20,7 @@ const persistConfig = {
 
 const persistedFavouritesReducer = persistReducer<FavouritesState>(
   persistConfig,
-  favouritesSlice
+  favouritesSlice,
 );
 export const store = configureStore({
   reducer: {

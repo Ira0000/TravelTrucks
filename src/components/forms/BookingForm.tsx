@@ -6,6 +6,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import bookingValidationSchema, {
   BookingFormData,
 } from "./validationSchemaBookinForm";
+import Button from "../ui/Button";
 
 // Input component
 const Input = ({
@@ -32,10 +33,10 @@ const Input = ({
             type={type}
             required={required}
             placeholder={placeholder}
-            className="h-[60px] w-full rounded-[12px] bg-[#F7F7F7] p-[18px] text-base font-normal leading-[24px] outline-none transition-colors placeholder:text-[#10182899] hover:bg-[#F2F4F7]"
+            className="h-[60px] w-full rounded-[12px] bg-bgInputGray p-[18px] text-base font-base transition-colors outline-none placeholder:text-[#10182899] hover:bg-bgLightGray"
           />
           {error && (
-            <p className="mt-[10px] text-sm text-red-500">{error.message}</p>
+            <p className="mt-[10px] text-sm text-hoverRed">{error.message}</p>
           )}
         </div>
       )}
@@ -64,10 +65,10 @@ const Textarea = ({
           <textarea
             {...field}
             placeholder={placeholder}
-            className={`w-full rounded-[12px] bg-[#F7F7F7] p-[18px] text-base font-normal leading-[24px] outline-none transition-colors hover:bg-[#F2F4F7] placeholder:text-[#10182899] ${className}`}
+            className={`w-full rounded-[12px] bg-bgInputGray p-[18px] text-base font-base transition-colors outline-none placeholder:text-[#10182899] hover:bg-bgLightGray ${className}`}
           />
           {error && (
-            <p className="mt-[10px] text-sm text-red-500">{error.message}</p>
+            <p className="mt-[10px] text-sm text-hoverRed">{error.message}</p>
           )}
         </div>
       )}
@@ -95,7 +96,7 @@ const Calendar = ({
             onChange={onChange}
             placeholderText="Booking Date*"
             dateFormat="dd/MM/yyyy"
-            className="h-[60px] w-full rounded-[12px] bg-[#F7F7F7] p-[18px] text-base font-normal leading-[24px] outline-none transition-colors hover:bg-[#F2F4F7] placeholder:text-[#10182899]"
+            className="h-[60px] w-full rounded-[12px] bg-bgInputGray p-[18px] text-base font-base transition-colors outline-none placeholder:text-[#10182899] hover:bg-bgLightGray"
           />
           {error && (
             <p className="mt-[10px] text-sm text-red-500">{error.message}</p>
@@ -133,15 +134,14 @@ export default function BookingForm() {
     <>
       <Toaster />
       <form
-        className="px-3 py-5 w-full lg:px-11 lg:py-[57px] lg:w-[641px] lg:h-[588px] border border-[#DADDE1] rounded-[10px]"
+        noValidate
+        className="w-full rounded-[10px] border border-borderGray px-3 py-5 lg:h-[588px] lg:w-[641px] lg:px-11 lg:py-[57px]"
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="flex flex-col gap-6">
           <div>
-            <h3 className="text-xl font-semibold leading-[24px] mb-2">
-              Book your campervan now
-            </h3>
-            <p className="text-base font-normal leading-[24px] text-[#6C717B]">
+            <h3 className="mb-2 text-xl font-xl">Book your campervan now</h3>
+            <p className="text-base font-base text-gray">
               Stay connected! We are always ready to help you.
             </p>
           </div>
@@ -168,13 +168,11 @@ export default function BookingForm() {
               className="h-[118px]"
             />
           </div>
-          <button
+          <Button
+            text="Send"
             type="submit"
-            disabled={isSubmitting}
-            className="cursor-pointer place-self-center w-[166px] h-[56px] rounded-[200px] bg-[#E44848] text-base font-medium text-[#FFFFFF] transition-colors hover:bg-[#D84343]"
-          >
-            Send
-          </button>
+            className="place-self-center text-white"
+          />
         </div>
       </form>
     </>

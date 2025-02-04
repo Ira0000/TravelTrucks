@@ -5,12 +5,13 @@ import {
   selectCampersHasMorePages,
   selectCampersLoading,
   selectFilters,
-} from "../redux/campers/selectors";
-import { useAppDispatch, useAppSelector } from "../redux/hooks";
+} from "@redux/campers/selectors";
+import { useAppDispatch, useAppSelector } from "@redux/hooks";
+import { incrementPage, resetPagination } from "@redux/campers/slice";
+import { fetchCampers } from "@redux/campers/operations";
 import CamperItem from "./CamperItem";
-import { fetchCampers } from "../redux/campers/operations";
-import { incrementPage, resetPagination } from "../redux/campers/slice";
-import Loader from "./Loader/Loader";
+import Loader from "../../ui/Loader/Loader";
+import Button from "../../ui/Button";
 
 export default function CampersList() {
   const dispatch = useAppDispatch();
@@ -34,32 +35,29 @@ export default function CampersList() {
   if (error)
     return (
       <div className="flex">
-        <h2 className="font-semibold text-2xl leading-[32px]  truncate">
-          No Campers to show
-        </h2>
+        <h2 className="truncate text-2xl font-xl">No Campers to show</h2>
       </div>
     );
 
   return (
     <>
-      <ul className="grid grid-cols-1 l:grid-cols-2 lg:grid-cols-1 gap-3 lg:gap-8">
+      <ul className="grid grid-cols-1 gap-3 l:grid-cols-2 lg:grid-cols-1 lg:gap-8">
         {list.map((item) => {
           return (
-            <li key={item.id} className="w-full mx-auto">
+            <li key={item.id} className="mx-auto w-full">
               <CamperItem camperItem={item} />
             </li>
           );
         })}
       </ul>
-      <div className="w-full mx-auto">{isLoading && <Loader />}</div>
+      <div className="mx-auto w-full">{isLoading && <Loader />}</div>
       {!isLoading && !error && hasMore && (
-        <button
+        <Button
+          text="Load more"
           type="button"
           onClick={handleLoadMore}
-          className="mt-10 mx-auto block cursor-pointer self-center w-[145px] h-[56px] rounded-[200px]  border border-[#DADDE1] tracking-tighter font-medium text-base leading-[24px] hover:border-[#D84343] transition-colors"
-        >
-          Load more
-        </button>
+          className="mx-auto mt-10 border border-borderGray bg-transparent text-black hover:border-hoverRed hover:bg-transparent"
+        />
       )}
     </>
   );

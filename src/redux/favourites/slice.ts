@@ -23,10 +23,10 @@ const slice = createSlice({
   reducers: {
     addToFavourites: (
       state: FavouritesState,
-      action: PayloadAction<Campers>
+      action: PayloadAction<Campers>,
     ) => {
       const exists = state.campers.items.some(
-        (item) => item.id === action.payload.id
+        (item) => item.id === action.payload.id,
       );
       if (!exists) {
         state.campers.items = [...state.campers.items, action.payload];
@@ -34,10 +34,10 @@ const slice = createSlice({
     },
     removeFromFavourites: (
       state: FavouritesState,
-      action: PayloadAction<Campers["id"]>
+      action: PayloadAction<Campers["id"]>,
     ) => {
       state.campers.items = state.campers.items.filter(
-        (item) => item.id !== action.payload
+        (item) => item.id !== action.payload,
       );
     },
   },

@@ -2,19 +2,16 @@ import { Link } from "react-router-dom";
 
 const HomePage = () => {
   return (
-    <div
-      className="flex flex-col text-[#F7F7F7]  pl-2 md:pl-16 justify-center bg-[url(/public/hero_1x.avif)] bg-cover bg-center 
-          h-screen"
-    >
-      <h1 className="font-semibold text-5xl leading-[48px] md:leading-[32px] mb-4">
+    <div className="flex h-screen flex-col justify-center bg-[url(/public/hero_1x.avif)] bg-cover bg-center pl-2 text-bgInputGray md:pl-16">
+      <h1 className="mb-4 text-5xl leading-[48px] font-semibold md:leading-[32px]">
         Campers of your dreams
       </h1>
-      <p className="font-semibold text-2xl leading-[32px] mb-10">
+      <p className="mb-10 text-2xl font-xl">
         You can find everything you want in our catalog
       </p>
       <Link
         to="/catalog"
-        className="bg-[#E44848] text-[#FFFFFF] w-[173px] h-[56px] text-base rounded-[200px] cursor-pointer hover:bg-[#D84343] transition-colors flex justify-center items-center"
+        className="flex h-[56px] w-[173px] cursor-pointer items-center justify-center rounded-[200px] bg-red text-base text-white transition-colors hover:bg-hoverRed"
       >
         View Now
       </Link>

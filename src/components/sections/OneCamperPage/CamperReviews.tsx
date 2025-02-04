@@ -1,5 +1,5 @@
-import { Campers } from "../../types/CampersTypes";
-import Icon from "../utils/icon";
+import { Campers } from "types/CampersTypes";
+import Icon from "@utils/icon";
 
 interface CamperFeaturesProps {
   camperItem: Campers;
@@ -9,7 +9,7 @@ export default function CamperReviews({ camperItem }: CamperFeaturesProps) {
     const stars = [];
     for (let i = 0; i < rating; i++) {
       stars.push(
-        <Icon key={`yellow-star-${i}`} id="icon-yellow-star" w={16} h={16} />
+        <Icon key={`yellow-star-${i}`} id="icon-yellow-star" w={16} h={16} />,
       );
     }
 
@@ -19,19 +19,19 @@ export default function CamperReviews({ camperItem }: CamperFeaturesProps) {
     return stars;
   };
   return (
-    <ul className="flex flex-col gap-5 lg:gap-11 py-3 w-full lg:w-[631px] lg:h-[588px] ">
+    <ul className="flex w-full flex-col gap-5 py-3 lg:h-[588px] lg:w-[631px] lg:gap-11">
       {camperItem.reviews?.map((review, index) => {
         return (
           <li
             className="flex flex-col gap-4 overflow-y-auto"
             key={`${review.reviewer_name}-${index}`}
           >
-            <div className="flex gap-4 items-center">
-              <span className="flex justify-center items-center size-15 rounded-full bg-[#F2F4F7] font-semibold text-2xl leading-[32px] text-[#E44848] ">
+            <div className="flex items-center gap-4">
+              <span className="flex size-15 items-center justify-center rounded-full bg-bgLightGray text-2xl font-xl text-red">
                 {review.reviewer_name.charAt(0).toUpperCase()}
               </span>
               <div className="flex flex-col gap-1">
-                <p className="capitalise font-medium text-base leading-[24px]">
+                <p className="capitalise text-base font-base">
                   {review.reviewer_name}
                 </p>
                 <div className="flex gap-1">
@@ -39,7 +39,7 @@ export default function CamperReviews({ camperItem }: CamperFeaturesProps) {
                 </div>
               </div>
             </div>
-            <p className="font-normal text-base leading-[24px] text-[#475467]">
+            <p className="text-base font-base text-darkGray">
               {review.comment}
             </p>
           </li>
