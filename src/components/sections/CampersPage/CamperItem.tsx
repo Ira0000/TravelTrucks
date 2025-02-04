@@ -1,14 +1,14 @@
 import { Link, useLocation } from "react-router-dom";
-import { Campers } from "../../types/CampersTypes";
-import { cn } from "../utils/cn";
-import Icon from "../utils/icon";
-import { countAverage, filterCamperUtilities } from "../utils/counterHelpers";
-import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { Campers } from "types/CampersTypes";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { countAverage, filterCamperUtilities } from "@/utils/counterHelpers";
 import {
   addToFavourites,
   removeFromFavourites,
-} from "../redux/favourites/slice";
-import { selectIfIsFavourite } from "../redux/favourites/selectors";
+} from "@/redux/favourites/slice";
+import { selectIfIsFavourite } from "@/redux/favourites/selectors";
+import Icon from "@/utils/icon";
+import { cn } from "@/utils/cn";
 
 interface CamperItemProps {
   camperItem: Campers;
@@ -39,74 +39,70 @@ export default function CamperItem({ camperItem }: CamperItemProps) {
   }
 
   return (
-    <div className="flex flex-col lg:flex-row gap-6 border rounded-[20px] border-[#DADDE1] p-4 lg:p-6 lg:w-[888px] md:w-[425px]">
-      <div className="lg:w-73 w-full overflow-hidden h-80  rounded-[10px]">
+    <div className="flex flex-col gap-6 rounded-[20px] border border-borderGray p-4 md:w-[425px] lg:w-[888px] lg:flex-row lg:p-6">
+      <div className="h-80 w-full overflow-hidden rounded-[10px] lg:w-73">
         <img
-          className="object-cover w-full h-full"
+          className="h-full w-full object-cover"
           src={smallImageLink}
           alt={camperItem.name}
         />
       </div>
       <div className="lg:w-131">
-        <div className="flex flex-col lg:flex-row lg:justify-between mb-2">
-          <h2 className="font-semibold text-2xl leading-[32px] lg:w-[339px] truncate">
+        <div className="mb-2 flex flex-col lg:flex-row lg:justify-between">
+          <h2 className="truncate text-2xl font-xl lg:w-[339px]">
             {camperItem.name}
           </h2>
-          <div className="flex justify-between md:items-center gap-3">
-            <p className="font-semibold text-2xl leading-[32px]">
-              €{camperItem.price}.00
-            </p>
+          <div className="flex justify-between gap-3 md:items-center">
+            <p className="text-2xl font-l">€{camperItem.price}.00</p>
             <button
               onClick={() => handleHeartClick(camperItem)}
-              className="cursor-pointer justify-center items-center"
+              className="cursor-pointer items-center justify-center"
             >
               <Icon
                 id="icon-heart"
                 h={24}
                 w={26}
-                className={cn("hover:fill-[#E44848] transition-colors", {
-                  "fill-[#E44848]": checkIfFavourite(camperItem),
-                  "fill-[#101828]": !checkIfFavourite(camperItem),
+                className={cn("transition-colors hover:fill-hoverRed", {
+                  "fill-red": checkIfFavourite(camperItem),
+                  "fill-black": !checkIfFavourite(camperItem),
                 })}
               />
             </button>
           </div>
         </div>
-        <div className="flex gap-4 items-center mb-6">
+        <div className="mb-6 flex items-center gap-4">
           <div className="flex items-center gap-1">
             <Icon
               id="icon-yellow-star"
               w={16}
               h={16}
-              className=" flex items-center justify-center"
+              className="flex items-center justify-center"
             />
-            <p className="font-normal text-base leading-[24px]">
+            <p className="text-base font-base">
               {roundedRating} ({reviewsCount} Reviews)
             </p>
           </div>
-          <div className="flex gap-1 items-center">
+          <div className="flex items-center gap-1">
             <Icon id="icon-Map" h={16} w={16} />
-            <p className="font-normal text-base leading-[24px]">
-              {camperItem.location}
-            </p>
+            <p className="text-base font-base">{camperItem.location}</p>
           </div>
         </div>
-        <p className="mb-6 lg:w-131 font-normal text-base leading-[24px] text-[#475467] truncate">
+        <p className="mb-6 truncate text-base font-base text-darkGray lg:w-131">
           {camperItem.description}
         </p>
-        <ul className="flex flex-wrap gap-2 md:w-100 mb-6">
+        <ul className="mb-6 flex flex-wrap gap-2 md:w-100">
           {camperItemUtilities.slice(0, 4).map((utility, index) => {
             return (
               <li
                 key={`${camperItem.id}-feature-${index}`}
-                className="flex justify-center items-center gap-2 capitalize font-medium text-base leading-[24px] bg-[#F2F4F7] rounded-[100px] px-[18px] py-[12px]"
+                className="flex items-center justify-center gap-2 rounded-[100px] bg-bgLightGray px-[18px] py-[12px] text-base font-base capitalize"
               >
                 <Icon
                   id={utility.icon}
                   w={20}
                   h={20}
                   className={cn("", {
-                    "stroke-[#000000] fill-transparent":
+                    "fill-transparent stroke-[#000000]":
                       utility.icon === "icon-water" ||
                       utility.icon === "icon-microwave" ||
                       utility.icon === "icon-gas-stove",
@@ -122,7 +118,7 @@ export default function CamperItem({ camperItem }: CamperItemProps) {
           state={location}
           target="_blank"
           rel="noopener noreferrer"
-          className="mx-auto md:mx-0 w-[166px] h-[56px] flex justify-center items-center cursor-pointer bg-[#E44848] text-[#FFFFFF] hover:bg-[#D84343] rounded-[200px] transition-colors"
+          className="mx-auto flex h-[56px] w-[166px] cursor-pointer items-center justify-center rounded-[200px] bg-red text-white transition-colors hover:bg-hoverRed md:mx-0"
         >
           Show more
         </Link>

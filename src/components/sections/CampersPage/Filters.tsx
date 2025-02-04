@@ -1,10 +1,13 @@
 import { SubmitHandler, useForm } from "react-hook-form";
-import Icon from "../utils/icon";
-import { cn } from "../utils/cn";
-import { changeFilter } from "../redux/campers/slice";
-import { useAppDispatch } from "../redux/hooks";
-import { Equipment } from "../../types/CampersTypes";
 import { Dispatch, SetStateAction } from "react";
+// import { Equipment } from "types/CampersTypes";
+import { useAppDispatch } from "@/redux/hooks";
+import { changeFilter } from "@/redux/campers/slice";
+import Icon from "@/utils/icon";
+import { cn } from "@/utils/cn";
+import Button from "../../ui/Button";
+import { Equipment } from "types/CampersTypes";
+// import { Equipment } from "types/CampersTypes";
 
 interface FormValues {
   location: string;
@@ -28,8 +31,16 @@ export default function Filters({ setIsFilterOpen }: FilterProps) {
   const dispatch = useAppDispatch();
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     setIsFilterOpen(false);
-    dispatch(changeFilter(data));
     window.scrollTo({ top: 0, behavior: "smooth" });
+
+    const isFilterApplied =
+      data.location.trim() !== "" ||
+      data.vehicleType !== "" ||
+      (data.equipment && data.equipment.length > 0);
+
+    if (isFilterApplied) {
+      dispatch(changeFilter(data));
+    }
   };
 
   const watchVehicleType = watch("vehicleType");
@@ -54,42 +65,37 @@ export default function Filters({ setIsFilterOpen }: FilterProps) {
 
   return (
     <form
-      className="md:w-[300px] lg:w-[360px] flex flex-col gap-3 md:gap-10"
+      className="flex flex-col gap-3 md:w-[300px] md:gap-10 lg:w-[360px]"
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className="flex flex-col gap-2">
-        <label
-          htmlFor="location"
-          className="text-[#6C717B] font-normal text-base leading-[24px]"
-        >
+        <label htmlFor="location" className="text-base font-base text-gray">
           Location
         </label>
-        <div className="relative group">
+        <div className="group relative">
           <input
             id="location"
             type="text"
             {...register("location")}
-            className="pl-[48px] w-[343px] md:w-[300px] lg:w-90 bg-[#F7F7F7] h-14 rounded-2xl focus:outline-none focus:fill-[#101828] hover:fill-[#101828] placeholder:text-[#6C717B] text-[#101828] font-normal text-base leading-[24px] transition-colors"
+            className="h-14 w-[343px] rounded-2xl bg-bgInputGray pl-[48px] text-base font-base text-black transition-colors placeholder:text-gray hover:fill-black focus:fill-black focus:outline-none md:w-[300px] lg:w-90"
             placeholder="City"
           />
           <Icon
             id="icon-Map"
             w={20}
             h={20}
-            className="flex w-5 h-14 items-center justify-center absolute top-0 left-5  fill-[#6C717B] group-hover:fill-[#101828] group-focus:fill-[#101828]"
+            className="absolute top-0 left-5 flex h-14 w-5 items-center justify-center fill-gray group-hover:fill-black group-focus:fill-black"
           />
         </div>
       </div>
 
       <div className="flex flex-col gap-4 md:gap-8">
-        <p className="font-medium text-base leading-[24px] text-[#475467]">
-          Filters
-        </p>
+        <p className="text-base font-base text-darkGray">Filters</p>
         <div className="flex flex-col gap-6">
-          <label className=" font-semibold text-xl leading-[24px] mb-0 md:mb-6">
+          <label className="mb-0 text-xl font-xl md:mb-6">
             Vehicle Equipment
           </label>
-          <hr className="border border-[#DADDE1]" />
+          <hr className="border border-borderGray" />
           <ul className="grid grid-cols-3 gap-2 md:gap-3">
             {equipmentOptions.map((item, index) => (
               <li key={index} className="relative">
@@ -103,10 +109,10 @@ export default function Filters({ setIsFilterOpen }: FilterProps) {
                 <label
                   htmlFor={item.name}
                   className={cn(
-                    "flex flex-col gap-2 items-center rounded-xl justify-center border border-[#DADDE1] w-full h-[96px] transition-colors duration-200 cursor-pointer hover:border-[#E44848]",
+                    "flex h-[96px] w-full cursor-pointer flex-col items-center justify-center gap-2 rounded-xl border border-borderGray transition-colors duration-200 hover:border-red",
                     {
                       "!border-[#E44848]": watchEquipment.includes(item.name),
-                    }
+                    },
                   )}
                 >
                   <Icon
@@ -114,7 +120,7 @@ export default function Filters({ setIsFilterOpen }: FilterProps) {
                     w={32}
                     h={32}
                     className={cn({
-                      "stroke-[#000000] fill-transparent":
+                      "fill-transparent stroke-[#000000]":
                         item.icon === "icon-water" ||
                         item.icon === "icon-microwave" ||
                         item.icon === "icon-gas-stove",
@@ -128,10 +134,8 @@ export default function Filters({ setIsFilterOpen }: FilterProps) {
         </div>
 
         <div className="flex flex-col gap-4 md:gap-8">
-          <label className="font-semibold text-xl leading-[24px] mb-0 md:mb-6">
-            Vehicle Type
-          </label>
-          <hr className="border border-[#DADDE1]" />
+          <label className="mb-0 text-xl font-xl md:mb-6">Vehicle Type</label>
+          <hr className="border border-borderGray" />
           <ul className="grid grid-cols-3 gap-3">
             {vehicleTypes.map((type) => (
               <li key={type.name} className="relative">
@@ -145,14 +149,14 @@ export default function Filters({ setIsFilterOpen }: FilterProps) {
                 <label
                   htmlFor={type.name}
                   className={cn(
-                    "flex flex-col gap-2 items-center rounded-xl justify-center border border-[#DADDE1] w-full h-[96px] transition-colors duration-200 cursor-pointer hover:border-[#E44848]",
+                    "flex h-[96px] w-full cursor-pointer flex-col items-center justify-center gap-2 rounded-xl border border-borderGray transition-colors duration-200 hover:border-red",
                     {
-                      "border-[#E44848]": watchVehicleType === type.name,
-                    }
+                      "border-red": watchVehicleType === type.name,
+                    },
                   )}
                 >
                   <Icon id={type.icon} w={32} h={32} />
-                  <p className="capitalize text-center">{type.name}</p>
+                  <p className="text-center capitalize">{type.name}</p>
                 </label>
               </li>
             ))}
@@ -160,12 +164,7 @@ export default function Filters({ setIsFilterOpen }: FilterProps) {
         </div>
       </div>
 
-      <button
-        type="submit"
-        className="w-[166px] h-[56px] bg-[#E44848] text-white rounded-[200px] hover:bg-[#D84343] transition-colors cursor-pointer"
-      >
-        Search
-      </button>
+      <Button text="Search" type="submit" className="text-white" />
     </form>
   );
 }

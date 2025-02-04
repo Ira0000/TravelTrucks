@@ -9,7 +9,7 @@ export function countAverage(camperItem: Campers): {
   const averageRating: number =
     camperItem.reviews?.reduce(
       (sum, review) => sum + review.reviewer_rating,
-      0
+      0,
     ) ?? 0;
   const roundedRating: number =
     averageRating > 0

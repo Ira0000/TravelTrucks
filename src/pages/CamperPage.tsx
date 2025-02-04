@@ -1,29 +1,26 @@
 import { useParams } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { useEffect, useState } from "react";
-import { fetchCampersById } from "../redux/campers/operations";
+import { fetchCampersById } from "@/redux/campers/operations";
 import {
   selectOneCamper,
   selectOneCamperLoading,
-} from "../redux/campers/selectors";
-import { Campers } from "../../types/CampersTypes";
-import Icon from "../utils/icon";
-import { countAverage } from "../utils/counterHelpers";
-import { cn } from "../utils/cn";
-import Loader from "../components/Loader/Loader";
-import CamperReviews from "../components/CamperReviews";
-import CamperFeatures from "../components/CamperFeatures";
-import BookingForm from "../components/forms/BookingForm";
+} from "@/redux/campers/selectors";
+import { Campers } from "types/CampersTypes";
+import Icon from "@/utils/icon";
+import { countAverage } from "@/utils/counterHelpers";
+import { cn } from "@/utils/cn";
+import Loader from "@/components/ui/Loader/Loader";
+import BookingForm from "@/components/forms/BookingForm";
+import CamperReviews from "@/components/sections/OneCamperPage/CamperReviews";
+import CamperFeatures from "@/components/sections/OneCamperPage/CamperFeatures";
 
 export default function CamperPage() {
   const buildLinkClass = (tab: boolean): string => {
-    return cn(
-      "text-xl leading-[24px] font-semibold text-[#101828] relative pb-6 cursor-pointer",
-      {
-        "after:absolute after:bottom-0 after:left-0 after:h-[5px] after:w-full after:bg-[#E44848] after:z-10":
-          tab,
-      }
-    );
+    return cn("text-xl font-xl text-black relative pb-6 cursor-pointer", {
+      "after:absolute after:bottom-0 after:left-0 after:h-[5px] after:w-full after:bg-red after:z-10":
+        tab,
+    });
   };
 
   const [activeTab, setActiveTab] = useState(false);
@@ -55,43 +52,37 @@ export default function CamperPage() {
   }
 
   return (
-    <div className="flex flex-col lg:gap-7 lg:px-16 lg:py-12 gap-3 px-3 py-5">
+    <div className="flex flex-col gap-3 px-3 py-5 lg:gap-7 lg:px-16 lg:py-12">
       <div className="flex flex-col gap-2">
-        <h2 className="font-semibold text-2xl leading-[32px]">
-          {camperItem.name}
-        </h2>
-        <div className="flex items-center gap-4 mb-2">
+        <h2 className="text-2xl font-xl">{camperItem.name}</h2>
+        <div className="mb-2 flex items-center gap-4">
           <div className="flex items-center gap-1">
             <Icon
               id="icon-yellow-star"
               w={16}
               h={16}
-              className=" flex items-center justify-center"
+              className="flex items-center justify-center"
             />
-            <p className="font-normal text-base leading-[24px]">
+            <p className="text-base font-base">
               {roundedRating} ({reviewsCount} Reviews)
             </p>
           </div>
-          <div className="flex gap-1 items-center">
+          <div className="flex items-center gap-1">
             <Icon id="icon-Map" h={16} w={16} />
-            <p className="font-normal text-base leading-[24px]">
-              {camperItem.location}
-            </p>
+            <p className="text-base font-base">{camperItem.location}</p>
           </div>
         </div>
-        <p className="font-semibold text-2xl leading-[32px]">
-          €{camperItem.price}.00
-        </p>
+        <p className="text-2xl font-xl">€{camperItem.price}.00</p>
       </div>
-      <ul className="flex flex-col md:flex-row md:flex-wrap gap-5 lg:gap-12 mx-auto lg:mx-0">
+      <ul className="mx-auto flex flex-col gap-5 md:flex-row md:flex-wrap lg:mx-0 lg:gap-12">
         {camperItem.gallery?.map((photo, index) => {
           return (
             <li
               key={`gallery-${camperItem.id}-${index}`}
-              className="w-full md:w-73 lg:w-73 overflow-hidden h-78  rounded-[10px]"
+              className="h-78 w-full overflow-hidden rounded-[10px] md:w-73 lg:w-73"
             >
               <img
-                className="object-cover size-full"
+                className="size-full object-cover"
                 src={photo.thumb}
                 alt="Camper"
               />
@@ -99,7 +90,7 @@ export default function CamperPage() {
           );
         })}
       </ul>
-      <p className="mb-8 font-normal text-base leading-[24px] text-[#475467]">
+      <p className="mb-8 text-base font-base text-darkGray">
         {camperItem.description}
       </p>
       <div>
@@ -119,10 +110,10 @@ export default function CamperPage() {
                 Reviews
               </button>
             </div>
-            <hr className="absolute bottom-0.5 left-0 w-full h-[1px] bg-[#DADDE1] border-0" />
+            <hr className="absolute bottom-0.5 left-0 h-[1px] w-full border-0 bg-borderGray" />
           </div>
         </div>
-        <div className="flex flex-col lg:flex-row gap-10 w-full">
+        <div className="flex w-full flex-col gap-10 lg:flex-row">
           {activeTab ? (
             <CamperReviews camperItem={camperItem} />
           ) : (

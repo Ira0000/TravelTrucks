@@ -1,4 +1,4 @@
-import { SpriteTypes } from "./types";
+import { SpriteTypes } from "types";
 
 interface IconProps {
   id: SpriteTypes | string;
