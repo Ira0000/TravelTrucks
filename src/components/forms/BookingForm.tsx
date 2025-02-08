@@ -1,118 +1,17 @@
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import DatePicker from "react-datepicker";
 import toast, { Toaster } from "react-hot-toast";
 import "react-datepicker/dist/react-datepicker.css";
 import bookingValidationSchema, {
   BookingFormData,
 } from "./validationSchemaBookinForm";
 import Button from "../ui/Button";
-
-// Input component
-const Input = ({
-  control,
-  name,
-  placeholder,
-  type,
-  required,
-}: {
-  control: any;
-  name: string;
-  placeholder: string;
-  type: string;
-  required?: boolean;
-}) => {
-  return (
-    <Controller
-      name={name}
-      control={control}
-      render={({ field, fieldState: { error } }) => (
-        <div className="flex flex-col">
-          <input
-            {...field}
-            type={type}
-            required={required}
-            placeholder={placeholder}
-            className="h-[60px] w-full rounded-[12px] bg-bgInputGray p-[18px] text-base font-base transition-colors outline-none placeholder:text-[#10182899] hover:bg-bgLightGray"
-          />
-          {error && (
-            <p className="mt-[10px] text-sm text-hoverRed">{error.message}</p>
-          )}
-        </div>
-      )}
-    />
-  );
-};
-
-// Textarea component
-const Textarea = ({
-  control,
-  name,
-  placeholder,
-  className,
-}: {
-  control: any;
-  name: string;
-  placeholder: string;
-  className?: string;
-}) => {
-  return (
-    <Controller
-      name={name}
-      control={control}
-      render={({ field, fieldState: { error } }) => (
-        <div className="flex flex-col">
-          <textarea
-            {...field}
-            placeholder={placeholder}
-            className={`w-full rounded-[12px] bg-bgInputGray p-[18px] text-base font-base transition-colors outline-none placeholder:text-[#10182899] hover:bg-bgLightGray ${className}`}
-          />
-          {error && (
-            <p className="mt-[10px] text-sm text-hoverRed">{error.message}</p>
-          )}
-        </div>
-      )}
-    />
-  );
-};
-
-// Calendar component
-const Calendar = ({
-  control,
-  name,
-}: {
-  control: any;
-  name: string;
-  required?: boolean;
-}) => {
-  return (
-    <Controller
-      name={name}
-      control={control}
-      render={({ field: { onChange, value }, fieldState: { error } }) => (
-        <div className="flex flex-col">
-          <DatePicker
-            selected={value}
-            onChange={onChange}
-            placeholderText="Booking Date*"
-            dateFormat="dd/MM/yyyy"
-            className="h-[60px] w-full rounded-[12px] bg-bgInputGray p-[18px] text-base font-base transition-colors outline-none placeholder:text-[#10182899] hover:bg-bgLightGray"
-          />
-          {error && (
-            <p className="mt-[10px] text-sm text-red-500">{error.message}</p>
-          )}
-        </div>
-      )}
-    />
-  );
-};
+import Input from "../ui/FormComponents/Input";
+import Calendar from "../ui/FormComponents/Calendar";
+import TextArea from "../ui/FormComponents/TextArea";
 
 export default function BookingForm() {
-  const {
-    control,
-    handleSubmit,
-    formState: { isSubmitting },
-  } = useForm<BookingFormData>({
+  const { control, handleSubmit } = useForm<BookingFormData>({
     resolver: yupResolver(bookingValidationSchema),
     defaultValues: {
       name: "",
@@ -161,7 +60,7 @@ export default function BookingForm() {
               required
             />
             <Calendar control={control} name="bookingDate" />
-            <Textarea
+            <TextArea
               control={control}
               name="comment"
               placeholder="Comment"

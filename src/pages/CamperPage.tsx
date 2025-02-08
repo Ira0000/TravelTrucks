@@ -72,7 +72,7 @@ export default function CamperPage() {
             <p className="text-base font-base">{camperItem.location}</p>
           </div>
         </div>
-        <p className="text-2xl font-xl">€{camperItem.price}.00</p>
+        <p className="text-2xl font-xl">€{camperItem.price.toFixed(2)}</p>
       </div>
       <ul className="mx-auto flex flex-col gap-5 md:flex-row md:flex-wrap lg:mx-0 lg:gap-12">
         {camperItem.gallery?.map((photo, index) => {
