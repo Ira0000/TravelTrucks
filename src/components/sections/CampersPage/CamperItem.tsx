@@ -53,7 +53,7 @@ export default function CamperItem({ camperItem }: CamperItemProps) {
             {camperItem.name}
           </h2>
           <div className="flex justify-between gap-3 md:items-center">
-            <p className="text-2xl font-l">€{camperItem.price}.00</p>
+            <p className="text-2xl font-l">€{camperItem.price.toFixed(2)}</p>
             <button
               onClick={() => handleHeartClick(camperItem)}
               className="cursor-pointer items-center justify-center"
